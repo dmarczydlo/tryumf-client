@@ -5,7 +5,7 @@
 import React from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {connect} from 'react-redux';
-import {getUserListRequest} from '../actions/userActions';
+import {getUserListRequest} from '../../actions/userActions';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import {Link} from 'react-router';
 import ContentAdd from 'material-ui/svg-icons/content/add';
@@ -14,11 +14,10 @@ import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 class LinkFormatter extends React.Component {
     render() {
         return (
-            <RaisedButton primary={true} href={'/#/event/edit/' + this.props.link} icon={<EditIcon />}/>
+            <RaisedButton primary={true} href={'/#/users/edit/' + this.props.link} icon={<EditIcon />}/>
         );
     }
 }
-
 
 function linkFormatter(cell) {
     return (

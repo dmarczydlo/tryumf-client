@@ -47,18 +47,15 @@ const config = {
                 loaders: ['babel-loader'],
                 exclude: [nodeModulesPath],
             },
-            {
-                test: /\.css$/,
-                loader: 'css-loader',
-                use: ['style-loader', 'css-loader']
-            },
+            {test: /\.scss$/, loaders: ["style", "css", "sass"]},
             {
                 test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
                 loader: 'url-loader',
                 options: {
                     limit: 10000
                 }
-            }
+            },
+
         ],
     },
 };
