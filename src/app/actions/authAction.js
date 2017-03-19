@@ -36,8 +36,9 @@ export function userLoginRequest(loginData) {
             localStorage.setItem('jwtoken', token);
             localStorage.setItem('group', group);
             setAuthorizationToken(token);
-            console.log(jwt.decode(token));
-            dispatch(setCurrentUser(jwt.decode(token)));
+            const user_obj = jwt.decode(token);
+            user_obj.group = group;
+            dispatch(setCurrentUser(user_obj));
         });
     }
 }

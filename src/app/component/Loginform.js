@@ -31,7 +31,7 @@ class Loginform extends React.Component {
 
         this.props.userLoginRequest(this.state).then(
             () => {
-                hashHistory.push('/');
+                this.context.router.push('/');
             },
             (err) => {
                 this.setState({errors: err.response.data.error, showError: true})
@@ -89,8 +89,10 @@ class Loginform extends React.Component {
     }
 }
 
-Loginform
-    .propTypes = {
+Loginform.contextTypes = {
+    router: React.PropTypes.object.isRequired
+}
+Loginform.propTypes = {
     userLoginRequest: React.PropTypes.func.isRequired
 }
 

@@ -8,31 +8,30 @@ import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 
 import Layout from './layout/Layout';
 import Login from './pages/Login';
-import Index_Page from './pages/Home';
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import Users from './pages/Users';
+import Authentication from './utils/authenticate';
 
 class Index extends Component {
 
+
     render() {
-
-
 
         return (
 
             <MuiThemeProvider>
                 <Router history={hashHistory}>
                     <Route path="/" component={Layout}>
-                        <IndexRoute component={Index_Page}/>
-                        <Route path="user" component={Index_Page}/>
+                        <IndexRoute component={Home}/>
                         <Route path="login" component={Login}/>
-                        <Route path="/test" component={Index_Page}/>
+                        <Route path="profile" component={Profile}/>
+                        <Route path="users" component={Authentication(Users,'admin')}/>
+
                     </Route>
                 </Router>
             </MuiThemeProvider>
         );
     }
 }
-
-
-
-
 export default Index;
