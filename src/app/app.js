@@ -7,7 +7,8 @@ import {createStore, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk';
 import setAuthorizationToken from './utils/authorizationToken';
 import rootReducer from './reducers/rootReducer';
-import jwt from 'jsonwebtoken';
+import jwtDecode from 'jwt-decode';
+import {setCurrentUser} from './actions/authAction';
 
 const composeEnhancers =
     typeof window === 'object' &&
@@ -26,12 +27,15 @@ let store = createStore(
     enhancer
 );
 
+
 injectTapEventPlugin();
 
-if (localStorage.getItem('jwtoken')) {
-    setAuthorizationToken(localStorage.jwtoken);
-    store.dispatch(setAuthorizationToken(jwt.decode(localStorage.jwtoken)));
-}
+if (localStorage.jwtToken) {
+    setAuthorizationToken(localStorage.jwtToken);
 
+    const user_obj = jwtDecode(localStorage.jwtToken);
+    user_obj.group = localStorage.group;
+    store.dispatch(setCurrentUser(user_obj));
+}
 
 render(<Provider store={store}><Index /></Provider>, document.getElementById('app'));

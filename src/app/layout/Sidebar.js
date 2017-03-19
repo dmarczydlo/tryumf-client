@@ -4,7 +4,7 @@ import MenuItem from 'material-ui/MenuItem';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {logout} from '../actions/authAction';
-import  {hashHistory} from 'react-router';
+
 class Sidebar extends React.Component {
 
     logout(e) {
