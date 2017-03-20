@@ -11,6 +11,7 @@ import {Link} from 'react-router';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import RaisedButton from 'material-ui/RaisedButton';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
+import style from '../../style/mail.scss';
 class LinkFormatter extends React.Component {
     render() {
         return (
@@ -61,7 +62,7 @@ class Users extends React.Component {
         };
 
         return (
-            <div>
+            <div className={style.container} >
                 <BootstrapTable tableStyle={ {width: '100%'} } data={this.props.users} striped hover
                                 selectRow={ selectRowProp } options={ options } deleteRow
                                 search multiColumnSearch>
@@ -80,8 +81,6 @@ class Users extends React.Component {
 
             </div>
         );
-
-
     }
 }
 

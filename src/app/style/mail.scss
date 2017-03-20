@@ -1,4 +1,16 @@
+.block
+{
+  background: red !important;
+}
+
 .container
 {
   padding: 10px;
+  background: green !important;
+}
+
+.button_right_only
+{
+  float: right;
+  background: red !important;
 }

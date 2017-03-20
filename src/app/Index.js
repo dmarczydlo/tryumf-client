@@ -26,7 +26,7 @@ class Index extends Component {
                         <Route path="profile" component={Profile}/>
                         <Route path="users" component={Authentication(Users, 'admin')}/>
                         <Route path="users/add" component={Authentication(UserEditAdd, 'admin')}/>
-                        <Route path="users/edit/:id" component={Authentication(UserEditAdd, 'admin')}/>
+                        <Route path="users/edit/:id" component={Authentication(UserEditAdd, 'admin')} />
 
                     </Route>
                 </Router>
