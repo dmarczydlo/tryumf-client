@@ -13,17 +13,26 @@ class AdminTasks extends React.Component {
     }
     render() {
 
+
         return (
             <div>
                 <BootstrapTable tableStyle={ {width: '100%'} } data={this.props.tasks} striped hover
                                 search multiColumnSearch>
-                    <TableHeaderColumn width='5%' dataSort={true} isKey dataField='id'>ID</TableHeaderColumn>
-                    <TableHeaderColumn width='20%' dataSort={true} dataField='name'>Opis</TableHeaderColumn>
-                    <TableHeaderColumn width='20%' dataSort={true} dataField='min_lvl'>Poziom</TableHeaderColumn>
-                    <TableHeaderColumn width='20%' dataSort={true} dataField='prio'>Priorytet</TableHeaderColumn>
-                    <TableHeaderColumn width='20%' dataSort={true} dataField='time_to_do'>Czas</TableHeaderColumn>
-                    <TableHeaderColumn width='20%' dataSort={true} dataField='status'>Status</TableHeaderColumn>
+                    <TableHeaderColumn width={'5%'} dataSort={true} isKey dataField='id'>ID</TableHeaderColumn>
+                    <TableHeaderColumn width={'5%'} dataSort={true}  dataField='type'>Typ</TableHeaderColumn>
+                    <TableHeaderColumn width={'8%'} dataSort={true} dataField='order_number'>NumZam</TableHeaderColumn>
+                    <TableHeaderColumn width={'10%'} dataSort={true} dataField='date_add'>DatWply</TableHeaderColumn>
+                    <TableHeaderColumn width={'10%'} dataSort={true} dataField='date_order'>DataSprz</TableHeaderColumn>
+                    <TableHeaderColumn width={'10%'} dataSort={true} dataField='client'>Klient</TableHeaderColumn>
+                    <TableHeaderColumn width={'10%'} dataSort={true} dataField='employee'>Handlowiec</TableHeaderColumn>
+                    <TableHeaderColumn width={'5%'} dataSort={true} dataField='prio'>Prio</TableHeaderColumn>
+                    <TableHeaderColumn width={'5%'} dataSort={true} dataField='status'>Status</TableHeaderColumn>
+                    <TableHeaderColumn width={'10%'} dataSort={true} dataField='graphic_time'>Grafika</TableHeaderColumn>
+                    <TableHeaderColumn width={'10%'} dataSort={true} dataField='graver_time'>Grawernia</TableHeaderColumn>
+                    <TableHeaderColumn width={'10%'} dataSort={true} dataField='name'>Opis</TableHeaderColumn>
                 </BootstrapTable>
+
+
             </div>
         );
     };

@@ -20,11 +20,11 @@ class Page extends React.Component {
                 return (
                     <Admin/>
                 )
-            case 'graver':
+            case 'grawernia':
                 return (
                     <Graver/>
                 )
-            case 'graphic':
+            case 'grafika':
                 return (
                     <Graphic/>
                 )
