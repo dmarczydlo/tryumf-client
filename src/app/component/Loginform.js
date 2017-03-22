@@ -31,7 +31,7 @@ class Loginform extends React.Component {
 
         this.props.userLoginRequest(this.state).then(
             () => {
-                this.context.router.push('/login');
+                this.context.router.push('/');
             },
             (err) => {
                 this.setState({errors: err.response.data.error, showError: true})

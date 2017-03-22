@@ -3,10 +3,7 @@
  */
 import axios from 'axios';
 import {API_PATH} from '../variables';
-import {GET_USER_LIST} from './types';
-import {GET_USER_DATA} from './types';
-import {UPDATE_USER_DATA} from './types';
-import {ADD_USER_DATA} from './types';
+import {GET_USER_LIST,GET_USER_DATA,ADD_USER_DATA, GET_USERS_FROM_GROUP, UPDATE_USER_DATA} from './types';
 var qs = require('qs');
 
 export function getUserList(users) {
@@ -37,8 +34,12 @@ export function addUserData(user) {
     }
 }
 
+
+
+
+
+
 export function updateUserDataRequest(user) {
-    console.log('UPDATE WORK');
     return dispatch => {
         return axios.post(API_PATH + 'user/update/' + user.id, qs.stringify(user)).then(res => {
             dispatch(updateUserData(user));
@@ -47,7 +48,6 @@ export function updateUserDataRequest(user) {
 }
 
 export function addUserDataRequest(user) {
-    console.log('ADD WORK');
     return dispatch => {
         return axios.put(API_PATH + 'user/create', qs.stringify(user)).then(res => {
             dispatch(addUserData(user));
@@ -72,4 +72,15 @@ export function getUserDataRequest(user_id) {
         });
     }
 }
+
+export function deleteUserRequest(user_id)
+{
+    return dispatch => {
+        return axios.delete(API_PATH + 'user/delete/' + user_id).then(res => {
+
+        });
+    }
+}
+
+
 

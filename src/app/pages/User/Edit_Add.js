@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import style from '../../style/mail.scss';
+import style from '../../style/style.css';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentSave from 'material-ui/svg-icons/content/save';
@@ -224,7 +224,7 @@ class Edit_Add extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        user: state.users
+        user: state.user
     };
 }
 

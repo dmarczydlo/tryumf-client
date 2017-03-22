@@ -55,6 +55,10 @@ const config = {
                     limit: 10000
                 }
             },
+            {
+                test: /\.css$/,
+                loader:'style!css!'
+            }
 
         ],
     },

@@ -12,6 +12,8 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import RaisedButton from 'material-ui/RaisedButton';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import style from '../../style/mail.scss';
+import {deleteUserRequest} from '../../actions/userActions';
+
 class LinkFormatter extends React.Component {
     render() {
         return (
@@ -31,13 +33,23 @@ class Users extends React.Component {
         this.props.getUserListRequest();
     }
 
+    onDeleteRow = (rows) => {
+
+        this.props.deleteUserRequest(rows).then(
+            (res) => {
+            },
+            (err) => {
+                console.log(err.response.data.error);
+            }
+        )
+
+
+    };
 
     render() {
 
 
-        function onDeleteRow(rows) {
-            console.log(rows);
-        };
+
         function onRowSelect(row, isSelected) {
             console.log(row);
             console.log(isSelected);
@@ -50,7 +62,7 @@ class Users extends React.Component {
 
 
         const options = {
-            onDeleteRow: onDeleteRow
+            onDeleteRow: this.onDeleteRow
         };
 
         const selectRowProp = {
@@ -62,7 +74,7 @@ class Users extends React.Component {
         };
 
         return (
-            <div className={style.container} >
+            <div className={style.container}>
                 <BootstrapTable tableStyle={ {width: '100%'} } data={this.props.users} striped hover
                                 selectRow={ selectRowProp } options={ options } deleteRow
                                 search multiColumnSearch>
@@ -90,4 +102,12 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, {getUserListRequest})(Users);
+Users.propTypes = {
+    getUserListRequest: React.PropTypes.func.isRequired
+}
+
+Users.propTypes = {
+    deleteUserRequest: React.PropTypes.func.isRequired
+}
+
+export default connect(mapStateToProps, {getUserListRequest, deleteUserRequest})(Users);

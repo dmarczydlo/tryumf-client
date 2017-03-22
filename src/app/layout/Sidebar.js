@@ -20,7 +20,6 @@ class Sidebar extends React.Component {
             return (
                 <div>
                     <Link to={'/users'}><MenuItem onClick={this.props.toggleSidebar}>Pracownicy</MenuItem></Link>
-                    <Link to={'/tasks'}><MenuItem onClick={this.props.toggleSidebar}>Zadania</MenuItem></Link>
                     <Link to={'/raports'}><MenuItem onClick={this.props.toggleSidebar}>Raporty</MenuItem></Link>
                 </div>
 
@@ -35,7 +34,7 @@ class Sidebar extends React.Component {
 
         const isLogin = (
             <Drawer docked={false} open={this.props.open} onRequestChange={this.props.toggleSidebar}>
-                <Link to={'/page'}><MenuItem onClick={this.props.toggleSidebar}>Index</MenuItem></Link>
+                <Link to={'/'}><MenuItem onClick={this.props.toggleSidebar}>Index</MenuItem></Link>
                 <Link to={'/profile'}><MenuItem onClick={this.props.toggleSidebar}>Profil</MenuItem></Link>
                 {this.admin()}
                 <Link to="/login"><MenuItem onClick={this.logout.bind(this)}>Wyloguj</MenuItem></Link>
