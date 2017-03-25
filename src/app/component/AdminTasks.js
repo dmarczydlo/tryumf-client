@@ -15,8 +15,8 @@ class AdminTasks extends React.Component {
 
 
         return (
-            <div>
-                <BootstrapTable tableStyle={ {width: '100%'} } data={this.props.tasks} striped hover
+            <div className="table_my">
+                <BootstrapTable tableStyle={ {width: '100%'} }  data={this.props.tasks} striped hover
                                 search multiColumnSearch>
                     <TableHeaderColumn width={'5%'} dataSort={true} isKey dataField='id'>ID</TableHeaderColumn>
                     <TableHeaderColumn width={'5%'} dataSort={true}  dataField='type'>Typ</TableHeaderColumn>
@@ -29,7 +29,6 @@ class AdminTasks extends React.Component {
                     <TableHeaderColumn width={'5%'} dataSort={true} dataField='status'>Status</TableHeaderColumn>
                     <TableHeaderColumn width={'10%'} dataSort={true} dataField='graphic_time'>Grafika</TableHeaderColumn>
                     <TableHeaderColumn width={'10%'} dataSort={true} dataField='graver_time'>Grawernia</TableHeaderColumn>
-                    <TableHeaderColumn width={'10%'} dataSort={true} dataField='name'>Opis</TableHeaderColumn>
                 </BootstrapTable>
 
 
