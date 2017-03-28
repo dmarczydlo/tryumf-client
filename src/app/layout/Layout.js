@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header'
 import Sidebar from './Sidebar'
 import Footer from './Footer'
+import style from '../style/mail.scss';
 
 
 export default class Layout extends React.Component {
@@ -19,7 +20,11 @@ export default class Layout extends React.Component {
             <div>
                 <Header className='header' leftIconClick={this.handleToggleSidebar.bind(this)}/>
                 <Sidebar toggleSidebar={this.handleToggleSidebar.bind(this)} open={this.state.openSidebar}/>
-                {this.props.children}
+                <div className={style.container}>
+
+                    {this.props.children}
+                </div>
+
                 <Footer/>
             </div>
         );

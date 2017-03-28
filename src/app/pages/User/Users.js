@@ -11,13 +11,13 @@ import {Link} from 'react-router';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import RaisedButton from 'material-ui/RaisedButton';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
-import style from '../../style/mail.scss';
 import {deleteUserRequest} from '../../actions/userActions';
+import style from '../../style/mail.scss';
 
 class LinkFormatter extends React.Component {
     render() {
         return (
-            <RaisedButton primary={true} href={'/#/users/edit/' + this.props.link} icon={<EditIcon />}/>
+            <RaisedButton className={style.buttonEdit} primary={true} href={'/#/users/edit/' + this.props.link} icon={<EditIcon />}/>
         );
     }
 }
@@ -48,8 +48,6 @@ class Users extends React.Component {
 
     render() {
 
-
-
         function onRowSelect(row, isSelected) {
             console.log(row);
             console.log(isSelected);
@@ -74,25 +72,25 @@ class Users extends React.Component {
         };
 
         return (
-            <div className={style.container}>
+            <div className={style.table_my + ' col-xs-12'}>
                 <BootstrapTable tableStyle={ {width: '100%'} } data={this.props.users} striped hover
                                 selectRow={ selectRowProp } options={ options } deleteRow
                                 search multiColumnSearch>
-                    <TableHeaderColumn width='5%' dataSort={true} isKey dataField='id'>ID</TableHeaderColumn>
+                    <TableHeaderColumn width='10%' dataSort={true} isKey dataField='id'>ID</TableHeaderColumn>
                     <TableHeaderColumn width='20%' dataSort={true} dataField='name'>Imię</TableHeaderColumn>
                     <TableHeaderColumn width='20%' dataSort={true} dataField='surname'>Nazwisko</TableHeaderColumn>
-                    <TableHeaderColumn width='20%' dataSort={true} dataField='group'>Grupa</TableHeaderColumn>
+                    <TableHeaderColumn width='10%' dataSort={true} dataField='group'>Grupa</TableHeaderColumn>
                     <TableHeaderColumn width='20%' dataSort={true} dataField='email'>Email</TableHeaderColumn>
                     <TableHeaderColumn width='10%' dataSort={true} dataField='level'>Poziom</TableHeaderColumn>
-                    <TableHeaderColumn width='5%' dataField='id' dataFormat={ linkFormatter }>#</TableHeaderColumn>
+                    <TableHeaderColumn width='10%' dataField='id' dataFormat={ linkFormatter }>Edytuj</TableHeaderColumn>
                 </BootstrapTable>
-
-                <FloatingActionButton containerElement={<Link to={"/users/add/"}/>}>
+                <FloatingActionButton containerElement={<Link to={"/users/add/"}/>} className={style.button_right_only + ' ' + style.button_margin_top}>
                     <ContentAdd />
                 </FloatingActionButton>
-
             </div>
         );
+
+
     }
 }
 

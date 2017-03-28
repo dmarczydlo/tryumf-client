@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import style from '../../style/style.css';
+import style from '../../style/mail.scss';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentSave from 'material-ui/svg-icons/content/save';
@@ -13,22 +13,10 @@ import {getUserDataRequest, updateUserDataRequest, addUserDataRequest} from '../
 import {connect} from 'react-redux';
 import Slider from 'material-ui/Slider';
 import Snackbar from 'material-ui/Snackbar';
+import {avatarValue, groupValue} from '../../variables';
 // import Spinner from 'react-native-loading-spinner-overlay';
 
-const groupValue = [
-    {
-        id: 1,
-        name: 'Admin'
-    },
-    {
-        id: 2,
-        name: 'Grafik'
-    },
-    {
-        id: 3,
-        name: 'Grawer'
-    }
-];
+
 
 class Edit_Add extends React.Component {
 
@@ -41,11 +29,11 @@ class Edit_Add extends React.Component {
             email: this.refs.email.getValue(),
             password: this.refs.password.getValue(),
             group_id: this.state.group_select,
-            level: this.state.level
+            level: this.state.level,
+            avatar: this.state.avatar_select
         };
 
         if (this.props.params.id != null) {
-            console.log('before update');
             saveVal.id = this.props.params.id;
             this.props.updateUserDataRequest(saveVal).then(
                 (res) => {
@@ -73,6 +61,16 @@ class Edit_Add extends React.Component {
     handleGroupChange = (event, index, value) => {
         this.setState({group_select: value})
     };
+
+    handleAvatarChange = (event, index, value) => {
+        this.setState(
+            {
+                avatar_select: value,
+                avatar_icon: '/images/' + value
+            })
+    };
+
+
     handleSecondSlider = (event, value) => {
         this.setState({level: value});
     };
@@ -102,7 +100,9 @@ class Edit_Add extends React.Component {
                         surname: this.props.user.surname,
                         email: this.props.user.email,
                         level: this.props.user.level,
-                        loading: false
+                        loading: false,
+                        avatar_icon: '/images/' + this.props.user.avatar,
+                        avatar_select: this.props.user.avatar,
                     })
                 },
                 (err) => {
@@ -116,6 +116,7 @@ class Edit_Add extends React.Component {
 
         this.state = {
             group_select: 0,
+            avatar_select: 0,
             name: '',
             surname: '',
             email: '',
@@ -123,7 +124,8 @@ class Edit_Add extends React.Component {
             level: 1,
             error: '',
             showError: false,
-            loading: false
+            loading: false,
+            avatar_icon: ''
         };
     }
 
@@ -132,7 +134,7 @@ class Edit_Add extends React.Component {
 
         return (
             <div className={style.block}>
-                <div className='col-xs-12 col-sm-6 col-md-4'>
+                <div className={'col-xs-12 col-sm-6 ' + style.userBlock }>
                     <TextField
                         ref='name'
                         name='name'
@@ -183,6 +185,11 @@ class Edit_Add extends React.Component {
                         })}
                     </SelectField>
 
+
+                </div>
+
+                <div className={'col-xs-12 col-sm-6 ' + style.userBlock }>
+
                     <p>
                         <span>{'Poziom umiejętności: '}</span>
                         <span><strong>{this.state.level}</strong></span>
@@ -195,6 +202,25 @@ class Edit_Add extends React.Component {
                         value={this.state.level}
                         onChange={this.handleSecondSlider}
                     />
+
+                    <SelectField
+                        ref='avatar'
+                        floatingLabelText='Avatar'
+                        value={this.state.avatar_select}
+                        name='avatar'
+                        onChange={this.handleAvatarChange}
+                        fullWidth={true}
+                        autoWidth={true}
+                    >
+                        {avatarValue.map(function (avatar) {
+                            return <MenuItem key={avatar.id} value={avatar.img} primaryText={avatar.name}/>
+                        })}
+                    </SelectField>
+
+                    <div className={style.imgAvatar}>
+                        <img src={this.state.avatar_icon}/>
+                    </div>
+
 
                 </div>
 

@@ -8,7 +8,7 @@ class Graver extends React.Component {
 
     render() {
         return (
-          <Workflow type={'graver'}/>
+          <Workflow type={'grawernia'}/>
         );
     }
 }

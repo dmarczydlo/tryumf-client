@@ -6,3 +6,7 @@ export const ADD_USER_DATA = 'ADD_USER_DATA';
 export const GET_USERS_FROM_GROUP = 'GET_USERS_FROM_GROUP';
 export const ERROR = 'ERROR';
 export const GET_TASKS_LIST = 'GET_TASKS_LIST';
+export const UPDATE_USER =  'UPDATE_USER';
+export const SET_TASK_USER = 'SET_TASK_USER';
+export const START_TASK = 'START_TASK';
+export const STOP_TASK = 'STOP_TASK';

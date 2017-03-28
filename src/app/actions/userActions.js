@@ -1,7 +1,7 @@
 /**
  * Created by marczak on 2017-03-19.
  */
-import axios from 'axios';
+import axios from '../provider/axios';
 import {API_PATH} from '../variables';
 import {GET_USER_LIST,GET_USER_DATA,ADD_USER_DATA, GET_USERS_FROM_GROUP, UPDATE_USER_DATA} from './types';
 var qs = require('qs');
@@ -33,10 +33,6 @@ export function addUserData(user) {
         user
     }
 }
-
-
-
-
 
 
 export function updateUserDataRequest(user) {
@@ -78,6 +74,14 @@ export function deleteUserRequest(user_id)
     return dispatch => {
         return axios.delete(API_PATH + 'user/delete/' + user_id).then(res => {
 
+        });
+    }
+}
+
+export function updateProfileRequest(user_id,user_data)
+{
+    return dispatch => {
+        return axios.post(API_PATH + 'user/update_profile/' + user_id, qs.stringify(user_data)).then(res => {
         });
     }
 }

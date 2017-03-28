@@ -2,7 +2,7 @@
  * Created by marczak on 2017-03-21.
  */
 
-import axios from 'axios';
+import axios from '../provider/axios';
 import {API_PATH} from '../variables';
 import { GET_USERS_FROM_GROUP} from './types';
 var qs = require('qs');

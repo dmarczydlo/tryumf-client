@@ -3,7 +3,10 @@ import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {hashHistory} from 'react-router';
+import style from '../style/mail.scss';
 class Loginform extends React.Component {
+
+
 
     constructor(props) {
         super(props);
@@ -48,43 +51,46 @@ class Loginform extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.onSubmit}>
-                <div>
+            <div className={style.loginForm}>
+                <form onSubmit={this.onSubmit}>
                     <div>
-                        <h2>Login</h2>
-                        <TextField
-                            ref='email'
-                            name='email'
-                            floatingLabelText='Email'
-                            fullWidth={true}
-                            onChange={this.onChange}
-                            value={this.state.email}
-                        />
+                        <div>
+                            <h2>Login</h2>
+                            <TextField
+                                ref='email'
+                                name='email'
+                                floatingLabelText='Email'
+                                fullWidth={true}
+                                onChange={this.onChange}
+                                value={this.state.email}
+                            />
 
-                        <TextField
-                            ref='password'
-                            name='password'
-                            type='password'
-                            floatingLabelText='Password'
-                            fullWidth={true}
-                            onChange={this.onChange}
-                            value={this.state.password}
-                        />
+                            <TextField
+                                ref='password'
+                                name='password'
+                                type='password'
+                                floatingLabelText='Password'
+                                fullWidth={true}
+                                onChange={this.onChange}
+                                value={this.state.password}
+                            />
 
-                        <RaisedButton label="Login" type="submit"
-                                      primary={true}/>
+                            <RaisedButton label="Login" type="submit"
+                                          primary={true}/>
 
-                        <Snackbar
-                            open={this.state.showError}
-                            message={this.state.errors}
-                            autoHideDuration={4000}
-                            onRequestClose={this.handleRequestClose}
-                        />
+                            <Snackbar
+                                open={this.state.showError}
+                                message={this.state.errors}
+                                autoHideDuration={4000}
+                                onRequestClose={this.handleRequestClose}
+                            />
 
+
+                        </div>
 
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         );
     }
 }

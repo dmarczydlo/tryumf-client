@@ -11,8 +11,6 @@ class Page extends React.Component {
 
     renderPage() {
         const group = this.props.auth.user.group;
-        console.log(group);
-
 
 
         switch (group) {

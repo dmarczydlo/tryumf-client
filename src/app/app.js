@@ -31,8 +31,8 @@ let store = createStore(
 injectTapEventPlugin();
 
 if (localStorage.jwtToken) {
-    setAuthorizationToken(localStorage.jwtToken);
-
+    // setAuthorizationToken(localStorage.jwtToken);
+//
     const user_obj = jwtDecode(localStorage.jwtToken);
     user_obj.group = localStorage.group;
     store.dispatch(setCurrentUser(user_obj));

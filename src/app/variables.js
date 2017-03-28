@@ -1,3 +1,30 @@
+export const HOST_SERVER = 'http://api.loc/';
+export const API_PATH = HOST_SERVER + 'api/';
 
-export const API_PATH = 'http://api.loc/api/';
+
+export const groupValue = [
+    {
+        id: 1,
+        name: 'Admin'
+    },
+    {
+        id: 2,
+        name: 'Grafik'
+    },
+    {
+        id: 3,
+        name: 'Grawer'
+    }
+];
+
+export const avatarValue = [
+    {id: 1, name: 'Mężczyzna 1', img: 'm1.png'},
+    {id: 2, name: 'Mężczyzna 2', img: 'm2.png'},
+    {id: 3, name: 'Mężczyzna 3', img: 'm3.png'},
+    {id: 4, name: 'Mężczyzna 4', img: 'm4.png'},
+    {id: 5, name: 'Kobieta 1', img: 'f1.png'},
+    {id: 6, name: 'Kobieta 2', img: 'f2.png'},
+    {id: 7, name: 'Kobieta 3', img: 'f3.png'},
+    {id: 8, name: 'Kobieta 4', img: 'f4.png'},
+];
 

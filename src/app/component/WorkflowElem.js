@@ -1,0 +1,137 @@
+/**
+ * Created by marczak on 2017-03-26.
+ */
+import React from 'react';
+import Lightbox from 'react-image-lightbox';
+import {HOST_SERVER} from '../variables';
+import style from '../style/mail.scss';
+import RaisedButton from 'material-ui/RaisedButton';
+import Timer from '../component/Timer'
+const customStyles = {
+    overlay: {
+        zIndex: '1900'
+    }
+}
+
+class WorkflowElem extends React.Component {
+
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isOpen: false,
+            labelButton: 'Start',
+            run: false,
+            disableAccept: true,
+            time: 0,
+            internalId: null,
+            block_all: false
+        };
+    }
+
+    handlerImage = () => {
+        this.setState(
+            {
+                isOpen: true
+            }
+        );
+    };
+
+    handleStartClick = (e) => {
+
+        if (this.state.labelButton == 'Start') {
+            this.setState({
+                labelButton: 'Stop',
+                run: true,
+                disableAccept: true
+            });
+            let internal_id = setInterval(() =>
+                this.setState({
+                    time: this.state.time + 1
+                }), 1000);
+
+            let user_start = {
+                task_id: this.props.task.task_id,
+                section: this.props.type,
+                user_task_id: this.props.task.user_task_id
+            };
+
+            this.props.startTaskUserRequest(user_start);
+            this.props.onClick('start');
+
+            this.setState(
+                {
+                    internalId: internal_id
+                }
+            );
+
+        } else {
+            this.setState({
+                labelButton: 'Start',
+                disableAccept: false
+            });
+            // this.props.stopTaskUserRequest(this.props.this.props.task.task_id);
+
+
+            clearInterval(this.state.internalId);
+            this.props.onClick('stop');
+        }
+    };
+
+    render() {
+        return (
+            <div
+                className={"list-group-item list-group-item-action " + (this.state.labelButton === 'Stop' ? style.run : style.unrun) + (this.state.time > this.props.task.time ? ' ' + style.warning : ''  )}>
+                <div className={style.displayImage}>
+                    <div className={"col-xs-2 col-sm-2 col-md-1 col-lg-1 " + style.no_padding}>
+                        <img src={HOST_SERVER + this.props.task.image_url} title='abcd'
+                             onClick={this.handlerImage}/>
+                    </div>
+                    <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                        <div className={style.header_line1}>
+                            [<strong>#{this.props.task.order_number}</strong> - {this.props.task.client}]
+                            <Timer display={this.state.run}
+                                   value={this.state.time}
+                                   block={this.state.block_all}
+                            />
+
+                        </div>
+                        <div className={style.header_line2}>
+                            <span> Czas: <strong>{this.props.task.time / 60} min</strong> </span>
+                            <span> Prio: <strong>{this.props.task.prio}</strong></span>
+                            <span> Status: <strong>{this.props.task.status}</strong></span>
+                        </div>
+                    </div>
+                    <div className="col-xs-3 col-sm-3 col-md-4 col-lg-4">
+                        <div className={style.buttons}>
+                            <RaisedButton label={this.state.labelButton} primary={true}
+                                          onTouchTap={this.handleStartClick}
+                                          disabled={this.props.block && this.state.labelButton == 'Start'}
+                            />
+                            <RaisedButton label="Akceptuj" disabled={this.state.disableAccept}/>
+
+                        </div>
+                    </div>
+
+
+                    <div className="clearfix"/>
+                </div>
+
+
+                {this.state.isOpen &&
+                <Lightbox
+                    reactModalStyle={customStyles}
+                    mainSrc={HOST_SERVER + this.props.task.image_url}
+                    onCloseRequest={() => this.setState({isOpen: false})}
+                    enableZoom={true}
+                />
+                }
+
+
+            </div>
+        );
+    }
+}
+
+export default WorkflowElem;

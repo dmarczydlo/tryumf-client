@@ -2,13 +2,13 @@
  * Created by marczak on 2017-03-18.
  */
 
-import axios from 'axios';
 import {API_PATH} from '../variables';
 var qs = require('qs');
 import setAuthorizationToken from '../utils/authorizationToken'
 
 import jwtDecode from 'jwt-decode';
 import {SET_CURRENT_USER} from './types';
+import axios from '../provider/axios';
 
 export function setCurrentUser(user) {
     return {
@@ -16,6 +16,9 @@ export function setCurrentUser(user) {
         user
     }
 }
+
+
+
 
 
 export function logout() {

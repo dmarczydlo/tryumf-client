@@ -8,7 +8,7 @@ class Graphic extends React.Component {
 
     render() {
         return (
-            <Workflow type={'graver'} />
+            <Workflow type={'grafika'} />
         );
     }
 }

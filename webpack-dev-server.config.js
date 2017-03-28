@@ -30,6 +30,8 @@ const config = {
         path: buildPath, // Path of output file
         filename: 'app.js',
     },
+
+
     plugins: [
         // Enables Hot Modules Replacement
         new webpack.HotModuleReplacementPlugin(),
@@ -42,26 +44,37 @@ const config = {
     ],
     module: {
         loaders: [
-            {
-                test: /\.js$/, // All .js files
-                loaders: ['babel-loader'],
-                exclude: [nodeModulesPath],
-            },
-            {test: /\.scss$/, loaders: ["style", "css", "sass"]},
-            {
-                test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-                loader: 'url-loader',
-                options: {
-                    limit: 10000
-                }
-            },
+            { test: /\.js(x?)$/, loader: "babel-loader"},
+            { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader'},
             {
                 test: /\.css$/,
-                loader:'style!css!'
+                loader: 'style-loader!css-loader?modules'
+            },
+
+            {
+                test: /\.sass/,
+                loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&indentedSyntax'
+            },
+            {
+                test: /\.scss/,
+                loader: 'style!css?modules&sourceMap&localIdentName=[local]___[hash:base64:5]!sass?outputStyle=expanded&sourceMap'
+            },
+            { test: /\.png$/, loader: "url-loader?limit=100000" },
+            { test: /\.jpg$/, loader: "file-loader" },
+            {
+                test: /\.(png|jpg|gif|woff|woff2)$/,
+                loader: 'url-loader?limit=8192'
+            },
+            {
+                test: /\.(mp4|ogg|svg)$/,
+                loader: 'file-loader'
             }
 
         ],
+
     },
+
+
 };
 
 module.exports = config;
