@@ -49,13 +49,11 @@ class Users extends React.Component {
     render() {
 
         function onRowSelect(row, isSelected) {
-            console.log(row);
-            console.log(isSelected);
+
         };
 
         function onSelectAll(isSelected, rows) {
-            console.log(rows);
-            console.log(isSelected);
+
         };
 
 

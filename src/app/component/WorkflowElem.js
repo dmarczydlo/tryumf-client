@@ -7,28 +7,42 @@ import {HOST_SERVER} from '../variables';
 import style from '../style/mail.scss';
 import RaisedButton from 'material-ui/RaisedButton';
 import Timer from '../component/Timer'
+import Modal from '../component/Modal';
 const customStyles = {
     overlay: {
         zIndex: '1900'
     }
 }
-
 class WorkflowElem extends React.Component {
 
 
     constructor(props) {
         super(props);
-
+            console.log('constructor');
         this.state = {
             isOpen: false,
             labelButton: 'Start',
-            run: false,
-            disableAccept: true,
-            time: 0,
+            display: true,
+            disableAccept: this.props.task.sum_time > 0 ? false : true,
+            time: this.props.task.sum_time > 0 ? parseInt(this.props.task.sum_time) : 0,
             internalId: null,
-            block_all: false
+            block_all: false,
+            modal_open: false,
         };
     }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.task.sum_time);
+        console.log(this.state.time);
+        let flags = parseInt(nextProps.task.sum_time) > 0 ? true : (this.state.time > 0 ? true : (this.state.time <= 0 ? true : false))
+
+        this.setState(
+            {
+                disableAccept: !flags,
+                time: flags > 0 ? (this.state.time > 0 ? this.state.time : (parseInt(nextProps.task.sum_time) > 0 ? parseInt(nextProps.task.sum_time) : 0)) : 0
+            });
+    }
+
 
     handlerImage = () => {
         this.setState(
@@ -38,14 +52,29 @@ class WorkflowElem extends React.Component {
         );
     };
 
-    handleStartClick = (e) => {
+    handleAcceptClick = () => {
+
+        this.setState({modal_open: true});
+
+    }
+
+    modalAccept = () => {
+        this.setState({modal_open: false});
+        const index = this.props.tasks.findIndex((taks) => taks.user_task_id === this.props.task.user_task_id);
+        this.props.acceptTaskUserRequest(this.props.task.user_task_id, index);
+
+    }
+
+
+    handleStartClick = () => {
 
         if (this.state.labelButton == 'Start') {
             this.setState({
                 labelButton: 'Stop',
-                run: true,
-                disableAccept: true
+                disableAccept: true,
             });
+
+
             let internal_id = setInterval(() =>
                 this.setState({
                     time: this.state.time + 1
@@ -69,9 +98,9 @@ class WorkflowElem extends React.Component {
         } else {
             this.setState({
                 labelButton: 'Start',
-                disableAccept: false
+                disableAccept: false,
             });
-            // this.props.stopTaskUserRequest(this.props.this.props.task.task_id);
+            this.props.stopTaskUserRequest(this.props.work[this.props.task.task_id]);
 
 
             clearInterval(this.state.internalId);
@@ -80,18 +109,20 @@ class WorkflowElem extends React.Component {
     };
 
     render() {
+
         return (
             <div
                 className={"list-group-item list-group-item-action " + (this.state.labelButton === 'Stop' ? style.run : style.unrun) + (this.state.time > this.props.task.time ? ' ' + style.warning : ''  )}>
                 <div className={style.displayImage}>
                     <div className={"col-xs-2 col-sm-2 col-md-1 col-lg-1 " + style.no_padding}>
-                        <img src={HOST_SERVER + this.props.task.image_url} title='abcd'
+                        <img src={HOST_SERVER + this.props.task.image_url}
                              onClick={this.handlerImage}/>
                     </div>
                     <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7">
                         <div className={style.header_line1}>
-                            [<strong>#{this.props.task.order_number}</strong> - {this.props.task.client}]
-                            <Timer display={this.state.run}
+                            [Prod:{this.props.task.productID} <strong>#{this.props.task.order_number}</strong>
+                            - {this.props.task.client}]
+                            <Timer display={this.state.display}
                                    value={this.state.time}
                                    block={this.state.block_all}
                             />
@@ -109,7 +140,10 @@ class WorkflowElem extends React.Component {
                                           onTouchTap={this.handleStartClick}
                                           disabled={this.props.block && this.state.labelButton == 'Start'}
                             />
-                            <RaisedButton label="Akceptuj" disabled={this.state.disableAccept}/>
+                            <RaisedButton label="Akceptuj" disabled={this.state.disableAccept || this.props.block}
+                                          onTouchTap={this.handleAcceptClick}
+
+                            />
 
                         </div>
                     </div>
@@ -127,6 +161,14 @@ class WorkflowElem extends React.Component {
                     enableZoom={true}
                 />
                 }
+
+                <Modal
+                    cancelButton='Anuluj'
+                    acceptButton='Akceptuj'
+                    open={this.state.modal_open}
+                    modalAccept={this.modalAccept}
+                    modalText="Akceptacja zadania spowoduję usunięcie go z listy zadań. Czy zaakceptować?"
+                />
 
 
             </div>

@@ -16,7 +16,7 @@ class Page extends React.Component {
         switch (group) {
             case 'admin':
                 return (
-                    <Admin/>
+                    <Admin group={group}/>
                 )
             case 'grawernia':
                 return (
@@ -26,6 +26,17 @@ class Page extends React.Component {
                 return (
                     <Graphic/>
                 )
+
+            case 'kierownik grafiki':
+                return (
+                    <Admin group={group}/>
+                )
+
+            case 'kierownik grawernii':
+                return (
+                    <Admin group={group}/>
+                )
+
             default:
                 return (
                     <Graphic/>

@@ -6,6 +6,8 @@ import tasks from './tasks';
 import employee from './employee';
 import user from './user';
 import work from './work';
+import settasks from './setTasks';
+import userTask from './userTask';
 
 export default combineReducers({
     auth,
@@ -13,5 +15,7 @@ export default combineReducers({
     tasks,
     employee,
     user,
-    work
+    work,
+    settasks,
+    userTask
 });

@@ -3,24 +3,10 @@
  */
 import React from 'react';
 
-
-import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
 import {connect} from 'react-redux';
-import {getTaskTodayRequest, startTaskUserRequest,stopTaskUserRequest} from '../actions/taskAction';
-
+import {getTaskTodayRequest, startTaskUserRequest, stopTaskUserRequest, acceptTaskUserRequest} from '../actions/taskAction';
 import WorkflowElem from './WorkflowElem';
-const iconButtonElement = (
-    <IconButton
-        touch={true}
-        tooltip="Akcje"
-        tooltipPosition="bottom-left"
-    >
-        <MoreVertIcon color={grey400}/>
-    </IconButton>
-);
-
+import Alert from './Alert';
 
 class Workflow extends React.Component {
 
@@ -46,13 +32,13 @@ class Workflow extends React.Component {
             {
                 block_all: false
             }
+    }
 
+    componentWillMount() {
         this.props.getTaskTodayRequest(this.props.user_id).then(
 
         );
     }
-
-
     render() {
         return (
             <div className="list-group">
@@ -60,6 +46,10 @@ class Workflow extends React.Component {
                                                                  onClick={this.handleChangeBlock.bind(this)}
                                                                  block={this.state.block_all} key={i} i={i}
                                                                  task={task}/>)}
+                {this.props.tasks.length == 0 &&
+                    <Alert display={true} message="Brak przypisanych zadań na dziś" type="info"/>
+
+                }
             </div>
 
         );
@@ -68,11 +58,8 @@ class Workflow extends React.Component {
 }
 
 function mapStateToProps(state) {
-
-    console.log('state');
-    console.log(state);
     return {
-        tasks: state.tasks,
+        tasks: state.userTask,
         user_id: state.auth.user.sub,
         work: state.work
     };
@@ -89,4 +76,13 @@ Workflow.propTypes = {
     stopTaskUserRequest: React.PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps, {getTaskTodayRequest, startTaskUserRequest,stopTaskUserRequest})(Workflow);
+Workflow.propTypes = {
+    acceptTaskUserRequest: React.PropTypes.func.isRequired
+}
+
+export default connect(mapStateToProps, {
+    getTaskTodayRequest,
+    startTaskUserRequest,
+    stopTaskUserRequest,
+    acceptTaskUserRequest
+})(Workflow);

@@ -4,8 +4,6 @@
 
 import React from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import {connect} from 'react-redux';
-import {getTasksListRequest} from '../actions/taskAction';
 import style from '../style/mail.scss';
 
 const options = {
@@ -16,12 +14,7 @@ const options = {
 
 class AdminTasks extends React.Component {
 
-    componentWillMount() {
-        this.props.getTasksListRequest();
-    }
-
     render() {
-
 
         return (
 
@@ -55,15 +48,9 @@ class AdminTasks extends React.Component {
 }
 
 
-AdminTasks.propTypes = {
-    getTasksListRequest: React.PropTypes.func.isRequired
-}
-
-function mapStateToProps(state) {
-    return {
-        tasks: state.tasks
-    };
-}
 
 
-export default connect(mapStateToProps, {getTasksListRequest})(AdminTasks);
+
+
+
+export default AdminTasks;

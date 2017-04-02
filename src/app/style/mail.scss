@@ -100,11 +100,36 @@
   background: #FFCDD2 !important;
 }
 
-
 .unrun {
   background: #fff !important;
 }
 
 .no_padding {
   padding: 0px !important;
+}
+
+
+.alert_block {
+  display: block;
+  border: 1px #c9cbd7;
+  border-radius: 20px;
+  padding: 20px;
+
+}
+
+.alert_message {
+  text-align: center;
+  font-size: 15px;
+}
+
+.info {
+  background: #B2EBF2;
+}
+
+.error {
+  background: #FF5252;
+}
+
+.success {
+  background: #A5D6A7;
 }

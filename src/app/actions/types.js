@@ -10,3 +10,6 @@ export const UPDATE_USER =  'UPDATE_USER';
 export const SET_TASK_USER = 'SET_TASK_USER';
 export const START_TASK = 'START_TASK';
 export const STOP_TASK = 'STOP_TASK';
+export const ACCEPT_TASK = 'ACCEPT_TASK';
+export const GET_TASKS_TO_SET = 'GET_TASKS_TO_SET';
+

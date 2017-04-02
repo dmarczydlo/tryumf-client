@@ -8,6 +8,16 @@ export const groupValue = [
         name: 'Admin'
     },
     {
+        id: 4,
+        name: 'Kierownik Grafiki'
+    },
+
+    {
+        id: 5,
+        name: 'Kierownik Grawernii'
+    },
+
+    {
         id: 2,
         name: 'Grafik'
     },

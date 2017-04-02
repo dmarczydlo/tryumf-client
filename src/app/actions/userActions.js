@@ -3,7 +3,7 @@
  */
 import axios from '../provider/axios';
 import {API_PATH} from '../variables';
-import {GET_USER_LIST,GET_USER_DATA,ADD_USER_DATA, GET_USERS_FROM_GROUP, UPDATE_USER_DATA} from './types';
+import {GET_USER_LIST,GET_USER_DATA,ADD_USER_DATA, UPDATE_USER_DATA} from './types';
 var qs = require('qs');
 
 export function getUserList(users) {
