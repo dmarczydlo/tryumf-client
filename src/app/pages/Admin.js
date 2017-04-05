@@ -11,7 +11,7 @@ import ActionBuild from 'material-ui/svg-icons/action/build';
 
 
 import SwipeableViews from 'react-swipeable-views';
-import AdminReview from '../component/AdminReview';
+import ContainerReview from '../component/Review/ContainerReview';
 import TaskContainer from '../component/SetTask/SetTaskContainer';
 import AdminTasks from '../component/AdminTasks';
 import {getUsersFromGroupRequest} from '../actions/employeeAction';
@@ -203,7 +203,7 @@ function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee,
                     <TaskContainer timer={timer}  tasks={tasks_set['graver']} employee={employee[3]}/>
                 </div>
                 <div>
-                    <AdminReview/>
+                    <ContainerReview type={'admin'} />
                 </div>
             </SwipeableViews>
 
@@ -219,7 +219,7 @@ function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee,
                     <TaskContainer timer={timer}  tasks={tasks_set['graphic']} employee={employee[2]}/>
                 </div>
                 <div>
-                    <AdminReview/>
+                    <ContainerReview type={'graver'} />
                 </div>
             </SwipeableViews>
         );
@@ -235,7 +235,7 @@ function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee,
                 </div>
 
                 <div>
-                    <AdminReview/>
+                    <ContainerReview type={'graphic'} />
                 </div>
 
             </SwipeableViews>

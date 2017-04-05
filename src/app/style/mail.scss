@@ -3,7 +3,7 @@ $border-color-dark: rgb(191, 191, 191);
 $success-color: #AED581;
 $info-color: #B2EBF2;
 $error-color: #FF5252;
-
+$color-blue: rgb(0, 188, 212);
 .container {
 
   padding: 10px;
@@ -73,6 +73,31 @@ $error-color: #FF5252;
       height: 50px;
       border-radius: 50px;
       cursor: pointer;
+    }
+  }
+}
+
+.blockReview {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  .insideReview {
+    padding: 15px;
+
+    .name {
+      padding-top: 5px;
+      border-bottom: 1px solid $color-blue;
+      margin-bottom: 5px;
+      span {
+        margin-left: 2px;
+        margin-right: 2px;
+      }
+    }
+
+    .status {
+      margin-top: 4px;
+      border: 1px solid $border-color-light;
+      text-align: center;
+      padding: 1px;
     }
   }
 }
