@@ -2,13 +2,12 @@ import React, {Component} from 'react';
 import update from 'react/lib/update';
 import Card from './Card';
 import style from '../../style/mail.scss';
-
+import CircularProgress from 'material-ui/CircularProgress';
 import {DropTarget} from 'react-dnd';
 import {setTaskToUserRequest, removeTaskToUserRequest, moveTaskToUserRequest} from '../../actions/taskAction';
-
+import {formattedSeconds} from '../../utils/formatedSeconds';
 
 class Container extends Component {
-
     changeUserData(data) {
         this.setState(
             {
@@ -89,26 +88,33 @@ class Container extends Component {
             const {cards} = this.state;
             const {canDrop, isOver, connectDropTarget} = this.props;
             const isActive = canDrop && isOver;
-
+            let sumTime = 0;
             const backgroundColor = isActive ? style.activeContainer : '';
 
             return connectDropTarget(
-                <div className={backgroundColor + " list-group-item " + style.containerRoot }>
-                    {cards[0] && cards.map((card, i) => {
-                        return (
-                            <Card
-                                key={i}
-                                index={i}
-                                listId={this.props.id}
-                                card={card}
-                                removeCard={this.removeCard.bind(this)}
-                                moveCard={this.moveCard.bind(this)}/>
-                        );
-                    })}
+                <div>
+
+                    <div className={backgroundColor + " list-group-item " + style.containerRoot }>
+                        {cards[0] && cards.map((card, i) => {
+                            if (this.props.id == 2) {
+                            sumTime += card.time;
+                            }
+                            return (
+                                <Card
+                                    key={i}
+                                    index={i}
+                                    listId={this.props.id}
+                                    card={card}
+                                    removeCard={this.removeCard.bind(this)}
+                                    moveCard={this.moveCard.bind(this)}/>
+                            );
+                        })}
+                    </div>
+                    {this.props.id == 2 && <div className={style.sumTimeEmployee}>Całkowity czas: {formattedSeconds(sumTime)}</div>}
                 </div>
             );
         } else {
-            return <div>Loading</div>
+            return <div className={style.blockCenter}><CircularProgress size={100} thickness={5} /></div>
         }
     }
 }

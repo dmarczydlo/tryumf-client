@@ -18,7 +18,8 @@ import {getUsersFromGroupRequest} from '../actions/employeeAction';
 import {connect} from 'react-redux';
 import {getTaskToSetRequest, getTasksListRequest} from '../actions/taskAction';
 import {REFRESH_SET_DATA, REFRESH_VIEW_DATA} from '../variables';
-
+import style from '../style/mail.scss';
+import CircularProgress from 'material-ui/CircularProgress';
 
 class Admin extends React.Component {
 
@@ -109,7 +110,7 @@ class Admin extends React.Component {
             );
         }
         else {
-            return <div>Loading</div>
+            return <div className={style.blockCenter}><CircularProgress size={100} thickness={5} /></div>
         }
     }
 }

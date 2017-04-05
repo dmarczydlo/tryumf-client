@@ -3,9 +3,9 @@ import {findDOMNode} from 'react-dom';
 import {DragSource, DropTarget} from 'react-dnd';
 import flow from 'lodash/flow';
 import style from '../../style/mail.scss'
-
 import Lightbox from 'react-image-lightbox';
 import {HOST_SERVER} from '../../variables';
+
 
 const customStyles = {
     overlay: {
@@ -37,17 +37,22 @@ class Card extends Component {
         return connectDragSource(connectDropTarget(
             <div className={style.containerElement}>
 
-                <div className={"col-xs-2 col-sm-2 col-md-1 col-lg-1 " + style.no_padding + ' '+ style.displayImageElement}>
-                    <img  src={HOST_SERVER + card.image_url}
+                <div
+                    className={"col-xs-2 col-sm-2 col-md-1 col-lg-1 " + style.no_padding + ' ' + style.displayImageElement}>
+                    <img src={HOST_SERVER + card.image_url}
                          onClick={this.handlerShow}/>
                 </div>
                 <div className="col-xs-10 col-sm-10 col-md-11 col-lg-11">
-                    <span>Kod: <strong>{card.productID}</strong></span>&nbsp;
-                    <span>[<i>#{card.order_number}</i></span>]&nbsp;
-                    <span>Klient: <strong>{card.client}</strong></span><br/>
-                    <span>Typ: <strong>{card.type}</strong></span>&nbsp;
-                    <span>Czas: <strong>[{card.time / 60}] min</strong></span>&nbsp;
-                    <span>Poziom um.: <strong>{card.min_lvl}</strong></span>
+                    <div className={style.containerLineFirst}>
+                        <span>Kod: <strong>{card.productID}</strong></span>
+                        <span>[<i>#{card.order_number}</i>]</span>
+                        <span>Klient: <strong>{card.client}</strong></span>
+                    </div>
+                    <div className={style.containerLineSecond}>
+                        <span>Typ: <strong>{card.type}</strong></span>
+                        <span>Czas: <strong>[{card.time / 60}] min</strong></span>
+                        <span>Poziom um.: <strong>{card.min_lvl}</strong></span>
+                    </div>
                 </div>
                 <div className="clearfix"></div>
 
@@ -61,7 +66,8 @@ class Card extends Component {
                 />
                 }
             </div>
-        ));
+        ))
+            ;
     }
 }
 

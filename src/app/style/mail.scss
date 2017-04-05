@@ -1,9 +1,14 @@
+$border-color-light: rgb(232, 232, 232);
+$border-color-dark: rgb(191, 191, 191);
+$success-color: #AED581;
+$info-color: #B2EBF2;
+$error-color: #FF5252;
+
 .container {
 
   padding: 10px;
   margin-top: 10px;
   .table_my {
-
     table {
       margin-bottom: 0px !important;
     }
@@ -21,7 +26,6 @@
     }
   }
   .loginForm {
-
     h2 {
       text-align: center;
     }
@@ -63,7 +67,7 @@
     margin-bottom: 20px;
   }
 
-  .displayImage {
+  .displayImage, .containerRoot > .containerElement > .displayImageElement {
     img {
       width: 50px;
       height: 50px;
@@ -111,10 +115,9 @@
 
 .alert_block {
   display: block;
-  border: 1px #c9cbd7;
+  border: 1px $border-color-light;
   border-radius: 20px;
   padding: 20px;
-
 }
 
 .alert_message {
@@ -123,15 +126,25 @@
 }
 
 .info {
-  background: #B2EBF2;
+  background: $info-color;
 }
 
 .error {
-  background: #FF5252;
+  background: $error-color;
 }
 
 .success {
-  background: #A5D6A7;
+  background: $success-color;
+}
+
+.center {
+  text-align: center;
+}
+
+.blockCenter {
+  margin: 0 auto;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .hide {
@@ -140,41 +153,59 @@
 
 .containerDND {
 
-}
-
-.activeContainer {
-  background: #AED581 !important;
-}
-
-.containerRoot {
-  border: 1px solid rgb(224, 224, 224);
-  max-height: 400px;
-  min-height: 400px;
-  overflow: auto;
-  background: rgb(247, 247, 247);
-
-
-  .containerElement
-  {
-    border: 1px solid rgb(232, 232, 232);
-    padding: 0.5rem 1rem;
-    margin: .5rem;
-    background: #fff;
-    cursor: move;
-
-    .displayImageElement {
-      img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50px;
-        cursor: pointer;
-      }
-    }
+  .label {
+    font-weight: 700;
+    color: #b3b3b3;
+    font-size: 12px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    margin-top: 10px;
+  }
+  .activeContainer {
+    background: $success-color !important;
   }
 
+  .sumTimeEmployee {
+    display: block;
+    background: $info-color;
+    text-align: center;
+    padding: 4px;
+    border: 1px solid $border-color-light;
+    margin: 4px 0 4px 0;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .containerRoot {
+    border: 1px solid $border-color-light;
+    max-height: 400px;
+    min-height: 400px;
+    overflow: auto;
+    background: rgb(247, 247, 247);
+    .containerElement {
+      border: 1px solid $border-color-light;
+      padding: 0.5rem 1rem;
+      margin: .5rem;
+      background: #fff;
+      cursor: move;
+      span {
+        margin-left: 2px;
+        margin-right: 2px;
+
+      }
+    }
+
+    .containerLineFirst {
+      display: block;
+    }
+    .containerLineSecond {
+      display: block;
+      border-top: 1px dashed $border-color-dark;
+      padding-top: 3px;
+      margin-top: 3px;
+    }
+  }
 }
 
-.marginBottom12
-{
+.marginBottom12 {
   margin-bottom: 12px;
 }

@@ -9,9 +9,9 @@ import MenuItem from 'material-ui/MenuItem';
 import areIntlLocalesSupported from 'intl-locales-supported';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-let DateTimeFormat;
-import style from '../../style/mail.scss';
 
+import style from '../../style/mail.scss';
+let DateTimeFormat;
 
 class TaskList extends React.Component {
 
@@ -101,8 +101,9 @@ class TaskList extends React.Component {
         }
 
         return (
-            <div>
+            <div className={style.containerDND}>
                 <div className="col-md-6 col-xs-12">
+                    <label className={style.label}>Data</label>
                     <DatePicker
                         minDate={minDate}
                         maxDate={this.getMaxDate()}
@@ -116,7 +117,7 @@ class TaskList extends React.Component {
                         ref="schedule_day"
                         onChange={this.handleChangeDate}
                     />
-                    <h4>Lista zadań</h4>
+                    <h4 className={style.center}>Dostępne zadania</h4>
                     <div className="list-group">
                         <Container loading={false} id={1} list={this.props.tasks}/>
                     </div>
@@ -131,7 +132,6 @@ class TaskList extends React.Component {
                         onChange={this.handleUserChange}
                         fullWidth={true}
                         autoWidth={true}
-                        className={style.marginBottom12}
                     >
                         {this.props.employee.map(function (user) {
                             return <MenuItem key={user.id} value={user.id}
@@ -141,6 +141,7 @@ class TaskList extends React.Component {
 
                     <div>
                         <div>
+                            <h4 className={style.center}>Przydzielone zadania</h4>
                             <Container date={this.state.date} loading={this.state.loading_right} id={2}
                                        onRef={ref => (this.child = ref)}
                                        user_id={this.state.user_select}
