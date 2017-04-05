@@ -86,7 +86,7 @@ const cardSource = {
         const dropResult = monitor.getDropResult();
 
         if (dropResult && dropResult.listId !== item.listId) {
-            props.removeCard(item.index);
+            props.removeCard(item.index, item.card);
         }
     }
 };

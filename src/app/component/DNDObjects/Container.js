@@ -36,7 +36,6 @@ class Container extends Component {
     }
 
     pushCard(card) {
-        console.log('push ' + this.state.user_id + ' date = ' + this.state.date);
         if (this.state.user_id > 0 && this.state.date) {
             setTaskToUserRequest(card.task_id, this.state.user_id, this.state.date)
         }
@@ -57,7 +56,12 @@ class Container extends Component {
         }
     }
 
-    removeCard(index) {
+
+    removeCard(index, card) {
+
+        if (this.state.user_id > 0) {
+            removeTaskToUserRequest(card.user_task_id);
+        }
         this.setState(update(this.state, {
             cards: {
                 $splice: [
@@ -67,10 +71,12 @@ class Container extends Component {
         }));
     }
 
-    moveCard(dragIndex, hoverIndex) {
-        console.log('move' + this.state.user_id + ' elem ' + hoverIndex);
+    moveCard(dragIndex, hoverIndex, card) {
+        // console.log('move' + this.state.user_id + ' elem ' + hoverIndex);
         const {cards} = this.state;
         const dragCard = cards[dragIndex];
+
+        moveTaskToUserRequest(dragCard.user_task_id, hoverIndex);
 
         this.setState(update(this.state, {
             cards: {
@@ -97,7 +103,7 @@ class Container extends Component {
                     <div className={backgroundColor + " list-group-item " + style.containerRoot }>
                         {cards[0] && cards.map((card, i) => {
                             if (this.props.id == 2) {
-                            sumTime += card.time;
+                                sumTime += card.time;
                             }
                             return (
                                 <Card
@@ -110,11 +116,12 @@ class Container extends Component {
                             );
                         })}
                     </div>
-                    {this.props.id == 2 && <div className={style.sumTimeEmployee}>Całkowity czas: {formattedSeconds(sumTime)}</div>}
+                    {this.props.id == 2 &&
+                    <div className={style.sumTimeEmployee}>Całkowity czas: {formattedSeconds(sumTime)}</div>}
                 </div>
             );
         } else {
-            return <div className={style.blockCenter}><CircularProgress size={100} thickness={5} /></div>
+            return <div className={style.blockCenter}><CircularProgress size={100} thickness={5}/></div>
         }
     }
 }
