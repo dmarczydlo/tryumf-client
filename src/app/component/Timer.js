@@ -16,7 +16,7 @@ const formattedSeconds = (secs) => {
             .join(":")
     } else {
         return '00:00';
-        ł
+
     }
 };
 class Timer extends React.Component {

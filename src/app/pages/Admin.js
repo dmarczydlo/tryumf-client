@@ -12,12 +12,12 @@ import ActionBuild from 'material-ui/svg-icons/action/build';
 
 import SwipeableViews from 'react-swipeable-views';
 import AdminReview from '../component/AdminReview';
-import AdminSetGraver from '../component/AdminSetTask/AdminSetGraver';
-import AdminSetGraphic from '../component/AdminSetTask/AdminSetGraphic';
+import TaskContainer from '../component/SetTask/SetTaskContainer';
 import AdminTasks from '../component/AdminTasks';
 import {getUsersFromGroupRequest} from '../actions/employeeAction';
 import {connect} from 'react-redux';
 import {getTaskToSetRequest, getTasksListRequest} from '../actions/taskAction';
+import {REFRESH_SET_DATA, REFRESH_VIEW_DATA} from '../variables';
 
 
 class Admin extends React.Component {
@@ -25,10 +25,39 @@ class Admin extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            slideIndex: 0
+            slideIndex: 0,
+            setTime: REFRESH_SET_DATA / 1000,
+            setTimeID: 0
         };
         this.GROUP = this.props.group;
-        console.log(this.GROUP);
+    }
+
+
+    timer() {
+        clearInterval(this.state.setTimeID);
+        this.setState({
+            setTime: REFRESH_SET_DATA / 1000
+        });
+
+        let internal_id = setInterval(() =>
+            this.setState({
+                setTime: this.state.setTime - 1
+            }), 1000);
+
+        this.props.getTaskToSetRequest();
+
+        this.setState({
+            setTimeID: internal_id
+        })
+    }
+
+
+    refreshDataBySet = () => {
+
+        // this.timer();
+        //
+        // let internal_id = setInterval(() =>
+        //     this.timer(), REFRESH_SET_DATA);
     }
 
     handleChange = (value) => {
@@ -46,19 +75,19 @@ class Admin extends React.Component {
         if (this.GROUP == 'admin' || this.GROUP == 'kierownik grawernii')
             this.props.getUsersFromGroupRequest(3);
 
+        this.refreshDataBySet();
+
     }
 
 
     render() {
-
         if (( this.GROUP == 'admin' && typeof this.props.tasks_set['graphic'] !== 'undefined'
             && typeof this.props.tasks !== 'undefined'
             && typeof this.props.employee[2] !== 'undefined'
             && typeof this.props.employee[3] !== 'undefined')) {
-
             return (
                 <div>
-                    {adminItems(this.GROUP, this.handleChange, this.state.slideIndex, this.props.tasks, this.props.tasks_set, this.props.employee)}
+                    {adminItems(this.GROUP, this.handleChange, this.state.slideIndex, this.props.tasks, this.props.tasks_set, this.props.employee, this.state.setTime)}
                     {adminTabs(this.GROUP, this.handleChange, this.state.slideIndex)}
                 </div>
             );
@@ -74,7 +103,7 @@ class Admin extends React.Component {
         ) {
             return (
                 <div>
-                    {adminItems(this.GROUP, this.handleChange, this.state.slideIndex, this.props.tasks, this.props.tasks_set, this.props.employee)}
+                    {adminItems(this.GROUP, this.handleChange, this.state.slideIndex, this.props.tasks, this.props.tasks_set, this.props.employee, this.state.setTime)}
                     {adminTabs(this.GROUP, this.handleChange, this.state.slideIndex)}
                 </div>
             );
@@ -156,7 +185,7 @@ function adminTabs(GROUP, handleChange, slideIndex) {
     }
 }
 
-function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee) {
+function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee, timer) {
 
     if (GROUP == 'admin') {
         return (
@@ -167,10 +196,10 @@ function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee)
                     <AdminTasks tasks={tasks}/>
                 </div>
                 <div>
-                    <AdminSetGraphic tasks={tasks_set['graphic']} employee={employee[2]}/>
+                    <TaskContainer timer={timer}  tasks={tasks_set['graphic']} employee={employee[2]}/>
                 </div>
                 <div>
-                    <AdminSetGraver tasks={tasks_set['graver']} employee={employee[3]}/>
+                    <TaskContainer timer={timer}  tasks={tasks_set['graver']} employee={employee[3]}/>
                 </div>
                 <div>
                     <AdminReview/>
@@ -186,7 +215,7 @@ function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee)
                 index={slideIndex}
                 onChangeIndex={handleChange}>
                 <div>
-                    <AdminSetGraphic tasks={tasks_set['graphic']} employee={employee[2]}/>
+                    <TaskContainer timer={timer}  tasks={tasks_set['graphic']} employee={employee[2]}/>
                 </div>
                 <div>
                     <AdminReview/>
@@ -201,7 +230,7 @@ function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee)
                 index={slideIndex}
                 onChangeIndex={handleChange}>
                 <div>
-                    <AdminSetGraver tasks={tasks_set['graver']} employee={employee[3]}/>
+                    <TaskContainer timer={timer}  tasks={tasks_set['graver']} employee={employee[3]}/>
                 </div>
 
                 <div>

@@ -2,7 +2,6 @@
  * Created by marczak on 2017-04-01.
  */
 import React from 'react'
-import SingleTask from './SingleTask';
 import Container from '../DNDObjects/Container';
 import DatePicker from 'material-ui/DatePicker';
 import SelectField from 'material-ui/SelectField';
@@ -11,32 +10,56 @@ import areIntlLocalesSupported from 'intl-locales-supported';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 let DateTimeFormat;
+import style from '../../style/mail.scss';
 
 
 class TaskList extends React.Component {
 
 
     constructor(props) {
-        super(props)
+        super(props);
+        let date = new Date();
+        let isoDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, 10);
+
         this.state = {
             user_select: 0,
-            userTasks: []
+            userTasks: [],
+            lastUser: 0,
+            loading_right: false,
+            date: isoDate
         }
     }
 
     componentWillReceiveProps(nextProps) {
+        // console.log(this.props.userTask);
+
+        this.setState({
+            loading_right: true
+        });
         if (typeof nextProps.userTask[0] !== 'undefined') {
-            this.setState(
-                {
-                    userTasks: nextProps.userTask
-                }
-            )
+            if (this.state.user_select != this.state.lastUser) {
+                console.log('zmiana z ' + this.state.lastUser + ' na ' + this.state.user_select);
+                this.setState(
+                    {
+                        userTasks: nextProps.userTask,
+                        lastUser: this.state.user_select,
+                        loading_right: false
+                    }
+                );
+
+                this.child.changeUserData(nextProps.userTask);
+            }
         } else {
-            this.setState(
-                {
-                    userTasks: []
-                }
-            )
+            if (this.state.user_select != this.state.lastUser) {
+                this.setState(
+                    {
+                        userTasks: [],
+                        lastUser: this.state.user_select,
+                        loading_right: false
+                    }
+                );
+                this.child.changeUserData([]);
+            }
         }
     }
 
@@ -53,9 +76,15 @@ class TaskList extends React.Component {
         return maxDate;
     }
 
-    handleUpdate = () =>{
-        console.log('update');
-    }
+    handleChangeDate = (event, date) => {
+
+        let isoDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, 10);
+        this.props.changeDate(isoDate);
+        this.setState({
+            date: isoDate
+        })
+    };
+
 
     render() {
 
@@ -85,11 +114,11 @@ class TaskList extends React.Component {
                         mode="landscape"
                         defaultDate={minDate}
                         ref="schedule_day"
-                        onChange={this.props.changeDate}
+                        onChange={this.handleChangeDate}
                     />
                     <h4>Lista zadań</h4>
                     <div className="list-group">
-                        <Container id={1} list={this.props.tasks}/>
+                        <Container loading={false} id={1} list={this.props.tasks}/>
                     </div>
                 </div>
 
@@ -102,16 +131,20 @@ class TaskList extends React.Component {
                         onChange={this.handleUserChange}
                         fullWidth={true}
                         autoWidth={true}
+                        className={style.marginBottom12}
                     >
                         {this.props.employee.map(function (user) {
                             return <MenuItem key={user.id} value={user.id}
-                                             primaryText={user.name + ' ' + user.surname}/>
+                                             primaryText={user.name + ' ' + user.surname + ' [' + user.level + ']'}/>
                         })}
                     </SelectField>
 
                     <div>
                         <div>
-                            <Container id={2} list={this.state.userTasks}/>
+                            <Container date={this.state.date} loading={this.state.loading_right} id={2}
+                                       onRef={ref => (this.child = ref)}
+                                       user_id={this.state.user_select}
+                                       list={this.props.userTask}/>
                         </div>
                     </div>
                 </div>
@@ -121,13 +154,18 @@ class TaskList extends React.Component {
     }
 }
 
-TaskList.propTypes = {
+TaskList
+    .propTypes = {
     tasks: React.PropTypes.array.isRequired
 }
 
-TaskList.propTypes = {
+TaskList
+    .propTypes = {
     employee: React.PropTypes.array.isRequired
 };
 
 
-export default DragDropContext(HTML5Backend)(TaskList);
+export
+default
+
+DragDropContext(HTML5Backend)(TaskList);

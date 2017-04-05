@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import TaskList from './TaskList';
-import EmployeeRightSide from './EmployeeRightSide';
+
 import {connect} from 'react-redux';
 import {getTaskTodayRequest} from '../../actions/taskAction';
 
@@ -15,29 +15,23 @@ class SetTaskContainer extends React.Component {
         );
     };
 
-    // componentWillUpdate(nextProps, nextState) {
-    //     if (nextState.user_id != null) {
-    //         this.newTaskList(nextState.user_id, nextState.schedule_day);
-    //     }
-    // }
-
-
-    changeDate = (event, date) => {
-        let isoDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, 10);
+    changeDate = (date) => {
         this.setState(
             {
-                schedule_day: isoDate
+                schedule_day: date
             }
         );
-        this.newTaskList(this.state.user_id, isoDate);
+        this.newTaskList(this.state.user_id, date);
     };
 
     changeUser = (value) => {
+
         this.setState(
             {
                 user_id: value
             }
         );
+        console.log('wysylam ' + value);
         this.newTaskList(value, this.state.schedule_day);
 
     };
@@ -55,6 +49,7 @@ class SetTaskContainer extends React.Component {
         return (
             <div>
                 <TaskList
+                    timer={this.props.timer}
                     tasks={this.props.tasks}
                     changeDate={this.changeDate}
                     userTask={this.props.userTask} employee={this.props.employee}

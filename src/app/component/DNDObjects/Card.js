@@ -1,31 +1,65 @@
-import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
-import { DragSource, DropTarget } from 'react-dnd';
+import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
+import {DragSource, DropTarget} from 'react-dnd';
 import flow from 'lodash/flow';
+import style from '../../style/mail.scss'
 
-const style = {
-    border: '1px dashed gray',
-    padding: '0.5rem 1rem',
-    margin: '.5rem',
-    backgroundColor: 'white',
-    cursor: 'move'
-};
+import Lightbox from 'react-image-lightbox';
+import {HOST_SERVER} from '../../variables';
+
+const customStyles = {
+    overlay: {
+        zIndex: '1900'
+    }
+}
 
 class Card extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            isOpen: false
+        }
+    }
+
+    handlerShow = () => {
+        this.setState(
+            {
+                isOpen: true
+            }
+        );
+    };
+
     render() {
-        const { card, isDragging, connectDragSource, connectDropTarget } = this.props;
+        const {card, isDragging, connectDragSource, connectDropTarget} = this.props;
         const opacity = isDragging ? 0 : 1;
 
         return connectDragSource(connectDropTarget(
-            <div style={{ ...style, opacity }}>
-                <span>{card.productID}</span>&nbsp;|&nbsp;
-                <span>{card.min_lvl}</span>&nbsp;|&nbsp;
-                <span>{card.client}</span>&nbsp;|&nbsp;
-                <span>{card.order_number}</span>&nbsp;|&nbsp;
-                <span>{card.status}</span>&nbsp;|&nbsp;
-                <span>{card.time/60}</span>&nbsp;|&nbsp;
-                <span>{card.type}</span>
+            <div className={style.containerElement}>
+
+                <div className={"col-xs-2 col-sm-2 col-md-1 col-lg-1 " + style.no_padding + ' '+ style.displayImageElement}>
+                    <img  src={HOST_SERVER + card.image_url}
+                         onClick={this.handlerShow}/>
+                </div>
+                <div className="col-xs-10 col-sm-10 col-md-11 col-lg-11">
+                    <span>Kod: <strong>{card.productID}</strong></span>&nbsp;
+                    <span>[<i>#{card.order_number}</i></span>]&nbsp;
+                    <span>Klient: <strong>{card.client}</strong></span><br/>
+                    <span>Typ: <strong>{card.type}</strong></span>&nbsp;
+                    <span>Czas: <strong>[{card.time / 60}] min</strong></span>&nbsp;
+                    <span>Poziom um.: <strong>{card.min_lvl}</strong></span>
+                </div>
+                <div className="clearfix"></div>
+
+
+                {this.state.isOpen &&
+                <Lightbox
+                    reactModalStyle={customStyles}
+                    mainSrc={HOST_SERVER + card.image_url}
+                    onCloseRequest={() => this.setState({isOpen: false})}
+                    enableZoom={true}
+                />
+                }
             </div>
         ));
     }
@@ -45,7 +79,7 @@ const cardSource = {
         const item = monitor.getItem();
         const dropResult = monitor.getDropResult();
 
-        if ( dropResult && dropResult.listId !== item.listId ) {
+        if (dropResult && dropResult.listId !== item.listId) {
             props.removeCard(item.index);
         }
     }
@@ -90,7 +124,7 @@ const cardTarget = {
         }
 
         // Time to actually perform the action
-        if ( props.listId === sourceListId ) {
+        if (props.listId === sourceListId) {
             props.moveCard(dragIndex, hoverIndex);
 
             // Note: we're mutating the monitor item here!
