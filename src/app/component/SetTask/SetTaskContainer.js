@@ -31,7 +31,6 @@ class SetTaskContainer extends React.Component {
                 user_id: value
             }
         );
-        console.log('wysylam ' + value);
         this.newTaskList(value, this.state.schedule_day);
 
     };

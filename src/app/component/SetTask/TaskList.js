@@ -9,12 +9,10 @@ import MenuItem from 'material-ui/MenuItem';
 import areIntlLocalesSupported from 'intl-locales-supported';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-
 import style from '../../style/mail.scss';
 let DateTimeFormat;
 
 class TaskList extends React.Component {
-
 
     constructor(props) {
         super(props);
@@ -45,11 +43,12 @@ class TaskList extends React.Component {
             loading_right: true
         });
         if (typeof nextProps.userTask[0] !== 'undefined') {
-            if (this.state.user_select != this.state.lastUser) {
+            if (this.state.user_select != this.state.lastUser || this.state.lastDate != this.state.date) {
                 this.setState(
                     {
                         userTasks: nextProps.userTask,
                         lastUser: this.state.user_select,
+                        lastDate: this.state.date,
                         loading_right: false
                     }
                 );
@@ -87,6 +86,14 @@ class TaskList extends React.Component {
         return maxDate;
     }
 
+    getMinDate() {
+        const minDate = new Date();
+        minDate.setDate(minDate.getDay() - 7);
+
+        return minDate;
+    }
+
+
     handleChangeDate = (event, date) => {
 
         let isoDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, 10);
@@ -99,7 +106,7 @@ class TaskList extends React.Component {
 
     render() {
 
-        const minDate = new Date();
+        const today = new Date();
 
 
         if (areIntlLocalesSupported(['pl', 'pl-PL'])) {
@@ -111,12 +118,14 @@ class TaskList extends React.Component {
             require('intl/locale-data/jsonp/pl-PL');
         }
 
+
+
         return (
             <div className={style.containerDND}>
                 <div className="col-md-6 col-xs-12">
                     <label className={style.label}>Data</label>
                     <DatePicker
-                        minDate={minDate}
+                        minDate={this.getMinDate()}
                         maxDate={this.getMaxDate()}
                         DateTimeFormat={DateTimeFormat}
                         okLabel="OK"
@@ -124,7 +133,7 @@ class TaskList extends React.Component {
                         locale="pl-PL"
                         hintText="Data zadania"
                         mode="landscape"
-                        defaultDate={minDate}
+                        defaultDate={today}
                         ref="schedule_day"
                         onChange={this.handleChangeDate}
                     />
