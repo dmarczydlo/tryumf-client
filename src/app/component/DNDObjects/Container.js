@@ -6,7 +6,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 import {DropTarget} from 'react-dnd';
 import {setTaskToUserRequest, removeTaskToUserRequest, moveTaskToUserRequest} from '../../actions/taskAction';
 import {formattedSeconds} from '../../utils/formatedSeconds';
-
+import Snackbar from 'material-ui/Snackbar';
 class Container extends Component {
     changeUserData(data) {
         this.setState(
@@ -14,6 +14,20 @@ class Container extends Component {
                 cards: data
             }
         );
+    }
+
+    showProps = (message) => {
+        this.setState({
+            error: true,
+            messageError: message
+        });
+    }
+
+    handleRequestClose = () => {
+        this.setState({
+            error: false,
+            messageError: ''
+        });
     }
 
     componentDidMount() {
@@ -31,7 +45,9 @@ class Container extends Component {
         this.state = {
             cards: props.list,
             user_id: 0,
-            date: this.props.date
+            date: this.props.date,
+            error: false,
+            messageError: ''
         };
     }
 
@@ -44,24 +60,33 @@ class Container extends Component {
                 $push: [card]
             }
         }));
+        if (this.props.id == 2) {
+            // this.setState(
+            //     {
+            //         sumTime: this.state.sumTime + card.time
+            //     }
+            // );
+            this.props.changeTime(card.time);
+        }
     }
 
     componentWillReceiveProps(nextProps) {
-
-        if (this.props.id == 2) {
-            this.setState({
-                user_id: nextProps.user_id,
-                date: nextProps.date
-            });
-        }
+        // if (this.props.id == 2) {
+        this.setState({
+            user_id: nextProps.user_id,
+            date: nextProps.date
+        });
+        // }
     }
 
 
     removeCard(index, card) {
 
-        if (this.state.user_id > 0) {
+
+        if (this.state.user_id > 0 && this.props.id == 2) {
             removeTaskToUserRequest(card.user_task_id);
         }
+
         this.setState(update(this.state, {
             cards: {
                 $splice: [
@@ -69,6 +94,17 @@ class Container extends Component {
                 ]
             }
         }));
+
+        if (this.props.id == 2) {
+            // this.setState(
+            //     {
+            //         sumTime: this.state.sumTime - card.time
+            //     }
+            // );
+
+            this.props.changeTime(card.time * -1);
+        }
+
     }
 
     moveCard(dragIndex, hoverIndex, card) {
@@ -102,14 +138,16 @@ class Container extends Component {
 
                     <div className={backgroundColor + " list-group-item " + style.containerRoot }>
                         {cards[0] && cards.map((card, i) => {
-                            if (this.props.id == 2) {
-                                sumTime += card.time;
-                            }
+
                             return (
                                 <Card
+                                    sumTime={this.props.sumTime}
+                                    employee={this.props.employee}
                                     key={i}
                                     index={i}
+                                    user_id={this.state.user_id}
                                     listId={this.props.id}
+                                    showProps={this.showProps}
                                     card={card}
                                     removeCard={this.removeCard.bind(this)}
                                     moveCard={this.moveCard.bind(this)}/>
@@ -117,7 +155,15 @@ class Container extends Component {
                         })}
                     </div>
                     {this.props.id == 2 &&
-                    <div className={style.sumTimeEmployee}>Całkowity czas: {formattedSeconds(sumTime)}</div>}
+                    < div className={style.sumTimeEmployee}>Całkowity
+                        czas: {formattedSeconds(this.props.sumTime)}</div>}
+
+                    <Snackbar
+                        open={this.state.error}
+                        message={this.state.messageError}
+                        autoHideDuration={4000}
+                        onRequestClose={this.handleRequestClose}
+                    />
                 </div>
             );
         } else {
@@ -134,11 +180,24 @@ const cardTarget = {
         return {
             listId: id
         };
+    },
+
+
+    canDrop(props, monitor)
+    {
+        if (props.id == 2) {
+            let card = monitor.getItem().card;
+            // console.log(props);
+            // console.log(props);
+        }
+        return true;
     }
+
 };
 
-export default DropTarget("CARD", cardTarget, (connect, monitor) => ( {
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-    canDrop: monitor.canDrop()
-}))(Container);
+export default DropTarget("CARD", cardTarget, (connect, monitor) => (
+    {
+        connectDropTarget: connect.dropTarget(),
+        isOver: monitor.isOver(),
+        canDrop: monitor.canDrop(),
+    }))(Container);

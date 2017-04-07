@@ -33,6 +33,9 @@ const config = {
 
 
     plugins: [
+        new webpack.ProvidePlugin({
+            "React": "react",
+        }),
         // Enables Hot Modules Replacement
         new webpack.HotModuleReplacementPlugin(),
         // Allows error warnings but does not stop compiling.

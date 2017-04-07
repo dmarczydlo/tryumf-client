@@ -1,8 +1,8 @@
 $border-color-light: rgb(232, 232, 232);
 $border-color-dark: rgb(191, 191, 191);
-$success-color: #AED581;
+$success-color: #C8E6C9;
 $info-color: #B2EBF2;
-$error-color: #FF5252;
+$error-color: #FFCDD2;
 $color-blue: rgb(0, 188, 212);
 .container {
 
@@ -81,23 +81,24 @@ $color-blue: rgb(0, 188, 212);
   margin-top: 10px;
   margin-bottom: 10px;
   .insideReview {
-    padding: 15px;
-
-    .name {
-      padding-top: 5px;
-      border-bottom: 1px solid $color-blue;
-      margin-bottom: 5px;
-      span {
-        margin-left: 2px;
-        margin-right: 2px;
+    .blockPadding {
+      padding: 15px 15px 10px 15px;
+      .name {
+        padding-top: 5px;
+        border-bottom: 1px solid $color-blue;
+        margin-bottom: 5px;
+        span {
+          margin-left: 2px;
+          margin-right: 2px;
+        }
       }
-    }
 
-    .status {
-      margin-top: 4px;
-      border: 1px solid $border-color-light;
-      text-align: center;
-      padding: 1px;
+      .status {
+        margin-top: 4px;
+        border: 1px solid $border-color-light;
+        text-align: center;
+        padding: 1px;
+      }
     }
   }
 }
@@ -233,4 +234,9 @@ $color-blue: rgb(0, 188, 212);
 
 .marginBottom12 {
   margin-bottom: 12px;
+}
+
+.timerTime {
+  font-size: 16px;
+  margin-top: -1px;
 }

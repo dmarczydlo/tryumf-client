@@ -26,9 +26,17 @@ class TaskList extends React.Component {
             userTasks: [],
             lastUser: 0,
             loading_right: false,
-            date: isoDate
+            date: isoDate,
+            lastDate: isoDate,
+            sumTime: 0,
         }
     }
+
+    changeTime = (time) => {
+        this.setState({
+            sumTime: this.state.sumTime + time
+        })
+    };
 
     componentWillReceiveProps(nextProps) {
         // console.log(this.props.userTask);
@@ -38,7 +46,6 @@ class TaskList extends React.Component {
         });
         if (typeof nextProps.userTask[0] !== 'undefined') {
             if (this.state.user_select != this.state.lastUser) {
-                console.log('zmiana z ' + this.state.lastUser + ' na ' + this.state.user_select);
                 this.setState(
                     {
                         userTasks: nextProps.userTask,
@@ -47,18 +54,22 @@ class TaskList extends React.Component {
                     }
                 );
 
+
+                const sumValues = Object.keys(nextProps.userTask).reduce((acc, value) => acc + nextProps.userTask[value].time, 0);
                 this.child.changeUserData(nextProps.userTask);
+                this.setState({sumTime: sumValues});
             }
         } else {
-            if (this.state.user_select != this.state.lastUser) {
+            if (this.state.user_select != this.state.lastUser || this.state.lastDate != this.state.date) {
                 this.setState(
                     {
                         userTasks: [],
                         lastUser: this.state.user_select,
-                        loading_right: false
+                        loading_right: false,
+                        lastDate: this.state.date
                     }
                 );
-                this.child.changeUserData([]);
+                this.child.changeUserData([], 0);
             }
         }
     }
@@ -119,7 +130,11 @@ class TaskList extends React.Component {
                     />
                     <h4 className={style.center}>Dostępne zadania</h4>
                     <div className="list-group">
-                        <Container loading={false} id={1} list={this.props.tasks}/>
+                        <Container employee={this.props.employee} loading={false} id={1} list={this.props.tasks}
+                                   user_id={this.state.user_select}
+                                   changeTime={this.changeTime}
+                                   sumTime={this.state.sumTime}
+                        />
                     </div>
                 </div>
 
@@ -145,7 +160,11 @@ class TaskList extends React.Component {
                             <Container date={this.state.date} loading={this.state.loading_right} id={2}
                                        onRef={ref => (this.child = ref)}
                                        user_id={this.state.user_select}
-                                       list={this.props.userTask}/>
+                                       employee={this.props.employee}
+                                       list={this.props.userTask}
+                                       changeTime={this.changeTime}
+                                       sumTime={this.state.sumTime}
+                            />
                         </div>
                     </div>
                 </div>
@@ -166,7 +185,4 @@ TaskList
 };
 
 
-export
-default
-
-DragDropContext(HTML5Backend)(TaskList);
+export default DragDropContext(HTML5Backend)(TaskList);

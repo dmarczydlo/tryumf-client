@@ -4,7 +4,7 @@ import {DragSource, DropTarget} from 'react-dnd';
 import flow from 'lodash/flow';
 import style from '../../style/mail.scss'
 import Lightbox from 'react-image-lightbox';
-import {HOST_SERVER} from '../../variables';
+import {HOST_SERVER, MAX_WORK_TIME, ERROR_NO_TIME_TO_WORK, ERROR_LEVEL, ERROR_TASK_IN_PROGRESS} from '../../variables';
 
 
 const customStyles = {
@@ -29,6 +29,7 @@ class Card extends Component {
             }
         );
     };
+
 
     render() {
         const {card, isDragging, connectDragSource, connectDropTarget} = this.props;
@@ -66,8 +67,7 @@ class Card extends Component {
                 />
                 }
             </div>
-        ))
-            ;
+        ));
     }
 }
 
@@ -88,6 +88,33 @@ const cardSource = {
         if (dropResult && dropResult.listId !== item.listId) {
             props.removeCard(item.index, item.card);
         }
+    },
+
+    canDrag(props, monitor)
+    {
+
+        //time > max
+        if (props.listId == 1 && (props.sumTime + props.card.time > MAX_WORK_TIME)) {
+            props.showProps(ERROR_NO_TIME_TO_WORK);
+            return false;
+        }
+        //2,4,5,7 or 5 -- running task's
+        if (props.listId == 2 && [2, 4, 5, 7].find(x => x === props.card.status)) {
+            props.showProps(ERROR_TASK_IN_PROGRESS);
+            return false;
+        }
+
+        if (props.user_id > 0) {
+
+            const i = props.employee.findIndex((employee) => employee.id === props.user_id);
+            if (props.employee[i].level >= props.card.min_lvl) {
+                return true;
+            } else {
+                props.showProps(ERROR_LEVEL);
+            }
+        }
+        return false;
+
     }
 };
 
@@ -140,7 +167,7 @@ const cardTarget = {
             monitor.getItem().index = hoverIndex;
         }
     }
-};
+}
 
 export default flow(
     DropTarget("CARD", cardTarget, connect => ({

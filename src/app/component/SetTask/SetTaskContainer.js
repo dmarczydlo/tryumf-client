@@ -52,7 +52,8 @@ class SetTaskContainer extends React.Component {
                     timer={this.props.timer}
                     tasks={this.props.tasks}
                     changeDate={this.changeDate}
-                    userTask={this.props.userTask} employee={this.props.employee}
+                    userTask={this.props.userTask}
+                    employee={this.props.employee}
                     changeUser={this.changeUser}
                 />
             </div>

@@ -39,5 +39,10 @@ export const avatarValue = [
 ];
 export const REFRESH_SET_DATA = 100000;
 export const REFRESH_VIEW_DATA = 5000;
+export const MAX_WORK_TIME = 20700;
+
+export const ERROR_NO_TIME_TO_WORK = 'Ten pracownik nie ma wystarczająco czasu w tym dniu na to zadanie';
+export const ERROR_TASK_IN_PROGRESS = 'To zadanie trwa. Musi zostać zakończone';
+export const ERROR_LEVEL = 'Wybrany pracownik ma zbyt niskie kompetencje';
 
 

@@ -10,21 +10,23 @@ import rootReducer from './reducers/rootReducer';
 import jwtDecode from 'jwt-decode';
 import {setCurrentUser} from './actions/authAction';
 
-const composeEnhancers =
-    typeof window === 'object' &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-            // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-        }) : compose;
 
-const enhancer = composeEnhancers(
-    applyMiddleware(thunk),
+
+// const composeEnhancers =
+//     typeof window === 'object' &&
+//     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+//         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+//             Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+        // }) : compose;
+
+// const enhancer = composeEnhancers(
+//     applyMiddleware(thunk);
     // other store enhancers if any
-);
+// );
 
-let store = createStore(
+const store = createStore(
     rootReducer,
-    enhancer
+    applyMiddleware(thunk)
 );
 
 

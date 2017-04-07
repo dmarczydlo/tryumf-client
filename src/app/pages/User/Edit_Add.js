@@ -196,7 +196,7 @@ class Edit_Add extends React.Component {
                     </p>
                     <Slider
                         min={1}
-                        max={7}
+                        max={5}
                         step={1}
                         defaultValue={1}
                         value={this.state.level}
