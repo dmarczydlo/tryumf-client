@@ -37,7 +37,6 @@ class TaskList extends React.Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        // console.log(this.props.userTask);
 
         this.setState({
             loading_right: true
@@ -69,6 +68,7 @@ class TaskList extends React.Component {
                     }
                 );
                 this.child.changeUserData([], 0);
+                this.setState({sumTime: 0});
             }
         }
     }
@@ -117,7 +117,6 @@ class TaskList extends React.Component {
             require('intl/locale-data/jsonp/pl');
             require('intl/locale-data/jsonp/pl-PL');
         }
-
 
 
         return (

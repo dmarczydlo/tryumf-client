@@ -61,11 +61,7 @@ class Container extends Component {
             }
         }));
         if (this.props.id == 2) {
-            // this.setState(
-            //     {
-            //         sumTime: this.state.sumTime + card.time
-            //     }
-            // );
+
             this.props.changeTime(card.time);
         }
     }
@@ -84,7 +80,7 @@ class Container extends Component {
 
 
         if (this.state.user_id > 0 && this.props.id == 2) {
-            removeTaskToUserRequest(card.user_task_id);
+            removeTaskToUserRequest(card.task_id, this.state.user_id, this.state.date);
         }
 
         this.setState(update(this.state, {
@@ -96,12 +92,6 @@ class Container extends Component {
         }));
 
         if (this.props.id == 2) {
-            // this.setState(
-            //     {
-            //         sumTime: this.state.sumTime - card.time
-            //     }
-            // );
-
             this.props.changeTime(card.time * -1);
         }
 
@@ -112,7 +102,7 @@ class Container extends Component {
         const {cards} = this.state;
         const dragCard = cards[dragIndex];
 
-        moveTaskToUserRequest(dragCard.user_task_id, hoverIndex);
+        moveTaskToUserRequest(card.task_id, this.state.user_id, this.state.date, hoverIndex);
 
         this.setState(update(this.state, {
             cards: {
@@ -161,7 +151,7 @@ class Container extends Component {
                     <Snackbar
                         open={this.state.error}
                         message={this.state.messageError}
-                        autoHideDuration={4000}
+                        autoHideDuration={5000}
                         onRequestClose={this.handleRequestClose}
                     />
                 </div>
