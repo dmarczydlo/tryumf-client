@@ -203,8 +203,8 @@ $color-blue: rgb(0, 188, 212);
   }
   .containerRoot {
     border: 1px solid $border-color-light;
-    max-height: 400px;
-    min-height: 400px;
+    max-height: 350px;
+    min-height: 350px;
     overflow: auto;
     background: rgb(247, 247, 247);
     .containerElement {
@@ -243,4 +243,9 @@ $color-blue: rgb(0, 188, 212);
 .timerTime {
   font-size: 16px;
   margin-top: -1px;
+}
+
+.alingRight
+{
+  text-align: right;
 }

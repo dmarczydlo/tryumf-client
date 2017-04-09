@@ -13,7 +13,7 @@ class ContainerReview extends React.Component {
         if (typeof this.props.onlineData !== 'undefined') {
             return (
                 <div>
-                    <div>Dane odświeżają się co {REFRESH_VIEW_DATA/1000}s</div>
+                    <div className={style.alingRight}>Dane odświeżają się co {REFRESH_VIEW_DATA/1000}s</div>
                     {this.props.onlineData.map((user, i) => <BlockReview key={i} userData={user}/>)}
                 </div>
             );
