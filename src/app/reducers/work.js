@@ -14,11 +14,6 @@ export default (state = initialState, action = {}) => {
         }
 
 
-        // case STOP_TASK: {
-        //     return Object.assign([], state, action.user);
-        // }
-
-
         default:
             return state;
     }

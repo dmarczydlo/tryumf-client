@@ -4,12 +4,10 @@
 
 import React from 'react';
 import style from '../style/mail.scss';
-import {formattedSeconds} from '../utils/formatedSeconds';
+import {formattedSeconds} from '../utils/formattedSeconds';
 class Timer extends React.Component {
 
     render() {
-
-
         return (
             <span className={style.timer}>
                 <span className={this.props.display ? style.display : style.no_display + ' ' + style.block_div}>

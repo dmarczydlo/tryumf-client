@@ -14,52 +14,49 @@ import SwipeableViews from 'react-swipeable-views';
 import ContainerReview from '../component/Review/ContainerReview';
 import TaskContainer from '../component/SetTask/SetTaskContainer';
 import AdminTasks from '../component/AdminTasks';
-import {getUsersFromGroupRequest} from '../actions/employeeAction';
+import {getUsersFromGroupRequest, getEmployeeTaskOnlineRequest} from '../actions/employeeAction';
 import {connect} from 'react-redux';
 import {getTaskToSetRequest, getTasksListRequest} from '../actions/taskAction';
 import {REFRESH_SET_DATA, REFRESH_VIEW_DATA} from '../variables';
 import style from '../style/mail.scss';
 import CircularProgress from 'material-ui/CircularProgress';
-
 class Admin extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            slideIndex: 0,
-            setTime: REFRESH_SET_DATA / 1000,
-            setTimeID: 0
+            slideIndex: 0
         };
         this.GROUP = this.props.group;
     }
 
 
     timer() {
-        clearInterval(this.state.setTimeID);
-        this.setState({
-            setTime: REFRESH_SET_DATA / 1000
-        });
-
-        let internal_id = setInterval(() =>
-            this.setState({
-                setTime: this.state.setTime - 1
-            }), 1000);
-
         this.props.getTaskToSetRequest();
-
-        this.setState({
-            setTimeID: internal_id
-        })
     }
 
+    timer_online() {
+
+        if (this.GROUP == 'kierownik grawernii')
+            this.props.getEmployeeTaskOnlineRequest(3);
+        else if (this.GROUP == 'kierownik grafiki')
+            this.props.getEmployeeTaskOnlineRequest(2);
+        else if (this.GROUP == 'admin')
+            this.props.getEmployeeTaskOnlineRequest(1);
+
+
+    }
 
     refreshDataBySet = () => {
 
         // this.timer();
-        //
-        // let internal_id = setInterval(() =>
-        //     this.timer(), REFRESH_SET_DATA);
-    }
+
+        let internal_id = setInterval(() =>
+            this.timer(), REFRESH_SET_DATA);
+
+        let internal_id_online = setInterval(() =>
+            this.timer_online(), REFRESH_VIEW_DATA);
+    };
 
     handleChange = (value) => {
         this.setState({
@@ -69,12 +66,20 @@ class Admin extends React.Component {
 
     componentWillMount() {
         this.props.getTaskToSetRequest();
-        if (this.GROUP == 'admin')
+        if (this.GROUP == 'admin') {
             this.props.getTasksListRequest();
+            this.props.getEmployeeTaskOnlineRequest(1);
+        }
         if (this.GROUP == 'admin' || this.GROUP == 'kierownik grafiki')
             this.props.getUsersFromGroupRequest(2);
+
+        if (this.GROUP == 'kierownik grafiki')
+            this.props.getEmployeeTaskOnlineRequest(2);
+
         if (this.GROUP == 'admin' || this.GROUP == 'kierownik grawernii')
             this.props.getUsersFromGroupRequest(3);
+        if (this.GROUP == 'kierownik grawernii')
+            this.props.getEmployeeTaskOnlineRequest(3);
 
         this.refreshDataBySet();
 
@@ -88,7 +93,7 @@ class Admin extends React.Component {
             && typeof this.props.employee[3] !== 'undefined')) {
             return (
                 <div>
-                    {adminItems(this.GROUP, this.handleChange, this.state.slideIndex, this.props.tasks, this.props.tasks_set, this.props.employee, this.state.setTime)}
+                    {adminItems(this.GROUP, this.handleChange, this.state.slideIndex, this.props.tasks, this.props.tasks_set, this.props.employee, this.props.onlineData)}
                     {adminTabs(this.GROUP, this.handleChange, this.state.slideIndex)}
                 </div>
             );
@@ -104,13 +109,13 @@ class Admin extends React.Component {
         ) {
             return (
                 <div>
-                    {adminItems(this.GROUP, this.handleChange, this.state.slideIndex, this.props.tasks, this.props.tasks_set, this.props.employee, this.state.setTime)}
+                    {adminItems(this.GROUP, this.handleChange, this.state.slideIndex, this.props.tasks, this.props.tasks_set, this.props.employee,  this.props.onlineData)}
                     {adminTabs(this.GROUP, this.handleChange, this.state.slideIndex)}
                 </div>
             );
         }
         else {
-            return <div className={style.blockCenter}><CircularProgress size={100} thickness={5} /></div>
+            return <div className={style.blockCenter}><CircularProgress size={100} thickness={5}/></div>
         }
     }
 }
@@ -186,7 +191,7 @@ function adminTabs(GROUP, handleChange, slideIndex) {
     }
 }
 
-function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee, timer) {
+function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee,  onlineData) {
 
     if (GROUP == 'admin') {
         return (
@@ -197,13 +202,13 @@ function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee,
                     <AdminTasks tasks={tasks}/>
                 </div>
                 <div>
-                    <TaskContainer timer={timer}  tasks={tasks_set['graphic']} employee={employee[2]}/>
+                    <TaskContainer  tasks={tasks_set['graphic']} employee={employee[2]}/>
                 </div>
                 <div>
-                    <TaskContainer timer={timer}  tasks={tasks_set['graver']} employee={employee[3]}/>
+                    <TaskContainer  tasks={tasks_set['graver']} employee={employee[3]}/>
                 </div>
                 <div>
-                    <ContainerReview type={'admin'} />
+                    <ContainerReview  type={'admin'} onlineData={onlineData}/>
                 </div>
             </SwipeableViews>
 
@@ -216,10 +221,10 @@ function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee,
                 index={slideIndex}
                 onChangeIndex={handleChange}>
                 <div>
-                    <TaskContainer timer={timer}  tasks={tasks_set['graphic']} employee={employee[2]}/>
+                    <TaskContainer  tasks={tasks_set['graphic']} employee={employee[2]}/>
                 </div>
                 <div>
-                    <ContainerReview type={'graver'} />
+                    <ContainerReview  type={'graphic'} onlineData={onlineData}/>
                 </div>
             </SwipeableViews>
         );
@@ -231,11 +236,11 @@ function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee,
                 index={slideIndex}
                 onChangeIndex={handleChange}>
                 <div>
-                    <TaskContainer timer={timer}  tasks={tasks_set['graver']} employee={employee[3]}/>
+                    <TaskContainer tasks={tasks_set['graver']} employee={employee[3]}/>
                 </div>
 
                 <div>
-                    <ContainerReview type={'graphic'} />
+                    <ContainerReview  type={'graver'} onlineData={onlineData}/>
                 </div>
 
             </SwipeableViews>
@@ -248,7 +253,8 @@ function mapStateToProps(state) {
     return {
         tasks_set: state.settasks,
         tasks: state.tasks,
-        employee: state.employee
+        employee: state.employee,
+        onlineData: state.online
     };
 }
 
@@ -261,4 +267,9 @@ Admin.propTypes = {
 };
 
 
-export default connect(mapStateToProps, {getTaskToSetRequest, getTasksListRequest, getUsersFromGroupRequest})(Admin);
+export default connect(mapStateToProps, {
+    getTaskToSetRequest,
+    getTasksListRequest,
+    getUsersFromGroupRequest,
+    getEmployeeTaskOnlineRequest
+})(Admin);

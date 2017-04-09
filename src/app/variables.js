@@ -37,7 +37,7 @@ export const avatarValue = [
     {id: 7, name: 'Kobieta 3', img: 'f3.png'},
     {id: 8, name: 'Kobieta 4', img: 'f4.png'},
 ];
-export const REFRESH_SET_DATA = 100000;
+export const REFRESH_SET_DATA = 300000;
 export const REFRESH_VIEW_DATA = 5000;
 export const MAX_WORK_TIME = 20700;
 

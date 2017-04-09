@@ -10,6 +10,8 @@ import areIntlLocalesSupported from 'intl-locales-supported';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import style from '../../style/mail.scss';
+import {formattedSeconds} from '../../utils/formattedSeconds';
+import {REFRESH_SET_DATA} from '../../variables';
 let DateTimeFormat;
 
 class TaskList extends React.Component {
@@ -38,11 +40,11 @@ class TaskList extends React.Component {
 
     componentWillReceiveProps(nextProps) {
 
-        this.setState({
-            loading_right: true
-        });
-        if (typeof nextProps.userTask[0] !== 'undefined') {
-            if (this.state.user_select != this.state.lastUser || this.state.lastDate != this.state.date) {
+
+        if (this.state.user_select != this.state.lastUser || this.state.lastDate != this.state.date) {
+            if (typeof nextProps.userTask[0] !== 'undefined') {
+
+
                 this.setState(
                     {
                         userTasks: nextProps.userTask,
@@ -52,13 +54,11 @@ class TaskList extends React.Component {
                     }
                 );
 
-
                 const sumValues = Object.keys(nextProps.userTask).reduce((acc, value) => acc + nextProps.userTask[value].time, 0);
                 this.child.changeUserData(nextProps.userTask);
                 this.setState({sumTime: sumValues});
             }
-        } else {
-            if (this.state.user_select != this.state.lastUser || this.state.lastDate != this.state.date) {
+            else {
                 this.setState(
                     {
                         userTasks: [],
@@ -74,7 +74,12 @@ class TaskList extends React.Component {
     }
 
     handleUserChange = (event, index, value) => {
-        this.setState({user_select: value})
+        this.setState(
+            {
+                user_select: value,
+                loading_right: true
+            }
+        );
         this.props.changeUser(value);
     };
 
@@ -82,7 +87,6 @@ class TaskList extends React.Component {
     getMaxDate() {
         const maxDate = new Date();
         maxDate.setDate(maxDate.getDay() + 7);
-
         return maxDate;
     }
 
@@ -99,7 +103,8 @@ class TaskList extends React.Component {
         let isoDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, 10);
         this.props.changeDate(isoDate);
         this.setState({
-            date: isoDate
+            date: isoDate,
+            loading_right: true
         })
     };
 
@@ -136,6 +141,8 @@ class TaskList extends React.Component {
                         ref="schedule_day"
                         onChange={this.handleChangeDate}
                     />
+
+                    <div>Dane odświeżają się co {formattedSeconds(REFRESH_SET_DATA/1000)} min</div>
                     <h4 className={style.center}>Dostępne zadania</h4>
                     <div className="list-group">
                         <Container employee={this.props.employee} loading={false} id={1} list={this.props.tasks}

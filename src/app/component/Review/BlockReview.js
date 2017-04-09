@@ -7,7 +7,8 @@ import style from '../../style/mail.scss'
 import Avatar from 'material-ui/Avatar';
 import LinearProgress from 'material-ui/LinearProgress';
 import statusGet from '../../utils/statusGet';
-import {formattedSeconds} from '../../utils/formatedSeconds';
+import {formattedSeconds} from '../../utils/formattedSeconds';
+
 
 class BlockReview extends React.Component {
     render() {
@@ -15,7 +16,7 @@ class BlockReview extends React.Component {
 
         const color = userData.all_time <= userData.time ? style.success : style.error;
         return (
-            <div className={'col-xs-12 col-sm-6 col-md-3'}>
+            <div className={'col-xs-12 col-sm-6 col-md-4'}>
                 <Paper className={style.blockReview} zDepth={3}>
                     <div className={style.insideReview}>
                         <div className={style.blockPadding}>
@@ -26,7 +27,13 @@ class BlockReview extends React.Component {
                                 <div className={style.name}>
                                     <span>{userData.name}</span>
                                     <span>{userData.surname}</span>
-                                    <span>[<strong>#{userData.order_number}</strong>]</span>
+                                </div>
+                                <div>
+                                    <strong>Aktualne zadanie</strong>
+                                </div>
+
+                                <div>
+                                    Zamówinie: #{userData.order_number}
                                 </div>
 
                                 <div>
@@ -39,10 +46,28 @@ class BlockReview extends React.Component {
                                     Czas: {formattedSeconds(userData.time)}
                                 </div>
                                 <div className={"col-xs-12 col-sm-6 " + style.no_padding}>
-                                    Praca: {formattedSeconds(userData.all_time)}
+                                    Praca: {formattedSeconds(userData.all_time != null ? userData.all_time : 0)}
                                 </div>
                                 <div className="clearfix"></div>
-                                <LinearProgress mode="determinate" value={userData.all_time} max={userData.time}/>
+                                <LinearProgress mode="determinate"
+                                                value={userData.all_time != null ? parseInt(userData.all_time) : 0}
+                                                max={userData.time}/>
+
+                                <div className={style.marginTop4}>
+                                    <strong>Dzisiejszy czas pracy</strong>
+                                </div>
+                                <div className={"col-xs-12 col-sm-6 " + style.no_padding}>
+                                    Limit: {formattedSeconds(userData.maxTime)}
+                                </div>
+                                <div className={"col-xs-12 col-sm-6 " + style.no_padding}>
+                                    Praca: {formattedSeconds(userData.sumTime)}
+                                </div>
+                                <div className="clearfix"></div>
+
+                                <LinearProgress mode="determinate"
+                                                value={parseInt(userData.sumTime)}
+                                                max={parseInt(userData.maxTime)}/>
+
                             </div>
                             <div className="clearfix"></div>
                         </div>

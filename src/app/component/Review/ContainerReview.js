@@ -4,115 +4,22 @@
 import React from 'react'
 import BlockReview from './BlockReview';
 
-const testData = [
-    {
-        name: 'Jacek',
-        surname: 'Polak',
-        productID: 'ABCD13221',
-        order_number: '3242332',
-        client: 'SUPER ALTK',
-        time: 3000,
-        all_time: 2500,
-        type: 'ZO',
-        avatar: 'm2.png',
-        status: 2,
-    },
-
-    {
-        name: 'Edward',
-        surname: 'Konopka',
-        productID: 'XXXX221',
-        order_number: '3242332',
-        client: 'K2UPP PP',
-        time: 2000,
-        all_time: 300,
-        type: 'ZT',
-        avatar: 'm4.png',
-        status: 3,
-    },
-
-    {
-        name: 'Zuzanna',
-        surname: 'Chwast',
-        productID: 'AAA221',
-        order_number: '3242332',
-        client: 'ABC PP',
-        time: 1000,
-        all_time: 1200,
-        type: 'AA',
-        avatar: 'f4.png',
-        status: 2
-    },
-    {
-        name: 'Zuzanna',
-        surname: 'Chwast',
-        productID: 'AAA221',
-        order_number: '3242332',
-        client: 'ABC PP',
-        time: 1000,
-        all_time: 1200,
-        type: 'AA',
-        avatar: 'f4.png',
-        status: 3,
-    },
-    {
-        name: 'Zuzanna',
-        surname: 'Chwast',
-        productID: 'AAA221',
-        order_number: '3242332',
-        client: 'ABC PP',
-        time: 1000,
-        all_time: 1200,
-        type: 'AA',
-        avatar: 'f4.png',
-        status: 2
-    },
-    {
-        name: 'Zuzanna',
-        surname: 'Chwast',
-        productID: 'AAA221',
-        order_number: '3242332',
-        client: 'ABC PP',
-        time: 1000,
-        all_time: 1200,
-        type: 'AA',
-        avatar: 'f4.png',
-        status: 2
-    },
-    {
-        name: 'Zuzanna',
-        surname: 'Chwast',
-        productID: 'AAA221',
-        order_number: '3242332',
-        client: 'ABC PP',
-        time: 1000,
-        all_time: 1200,
-        type: 'AA',
-        avatar: 'f4.png',
-        status: 1
-    },
-    {
-        name: 'Zuzanna',
-        surname: 'Chwast',
-        productID: 'AAA221',
-        order_number: '3242332',
-        client: 'ABC PP',
-        time: 1000,
-        all_time: 1200,
-        type: 'AA',
-        avatar: 'f4.png',
-        status: 2
-    }
-];
-
-
+import style from '../../style/mail.scss';
+import CircularProgress from 'material-ui/CircularProgress';
+import {REFRESH_VIEW_DATA} from '../../variables'
 class ContainerReview extends React.Component {
     render() {
-        return (
-            <div>
-                {testData.map((user, i) => <BlockReview key={i} userData={user}/>)}
-            </div>
-        );
+
+        if (typeof this.props.onlineData !== 'undefined') {
+            return (
+                <div>
+                    <div>Dane odświeżają się co {REFRESH_VIEW_DATA/1000}s</div>
+                    {this.props.onlineData.map((user, i) => <BlockReview key={i} userData={user}/>)}
+                </div>
+            );
+        } else {
+            return <div className={style.blockCenter}><CircularProgress size={100} thickness={5} /></div>
+        }
     }
 }
 

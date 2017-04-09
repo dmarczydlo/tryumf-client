@@ -5,7 +5,7 @@ import style from '../../style/mail.scss';
 import CircularProgress from 'material-ui/CircularProgress';
 import {DropTarget} from 'react-dnd';
 import {setTaskToUserRequest, removeTaskToUserRequest, moveTaskToUserRequest} from '../../actions/taskAction';
-import {formattedSeconds} from '../../utils/formatedSeconds';
+import {formattedSeconds} from '../../utils/formattedSeconds';
 import Snackbar from 'material-ui/Snackbar';
 class Container extends Component {
     changeUserData(data) {

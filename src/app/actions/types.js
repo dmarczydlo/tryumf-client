@@ -12,4 +12,4 @@ export const START_TASK = 'START_TASK';
 export const STOP_TASK = 'STOP_TASK';
 export const ACCEPT_TASK = 'ACCEPT_TASK';
 export const GET_TASKS_TO_SET = 'GET_TASKS_TO_SET';
-
+export const GET_EMPLOYEE_TASKS = 'GET_EMPLOYEE_TASKS';
