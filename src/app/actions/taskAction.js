@@ -89,6 +89,7 @@ export function getTaskToSetRequest() {
         });
     }
 }
+
 export function setTaskToUserRequest(task_id, user_id, schedule_day) {
     return axios.post(API_PATH + 'task/set_task', qs.stringify({task_id, user_id, schedule_day}));
 }

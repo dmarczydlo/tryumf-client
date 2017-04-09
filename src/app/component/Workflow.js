@@ -12,6 +12,8 @@ import {
 } from '../actions/taskAction';
 import WorkflowElem from './WorkflowElem';
 import Alert from './Alert';
+import style from '../style/mail.scss';
+import CircularProgress from 'material-ui/CircularProgress';
 
 class Workflow extends React.Component {
 
@@ -46,21 +48,32 @@ class Workflow extends React.Component {
     }
 
     render() {
-        return (
-            <div className="list-group">
-                {this.props.tasks.map((task, i) => <WorkflowElem {... this.props}
-                                                                 onClick={this.handleChangeBlock.bind(this)}
-                                                                 block={this.state.block_all} key={i} i={i}
-                                                                 task={task}/>)}
-                {this.props.tasks.length == 0 &&
-                <Alert display={true} message="Brak przypisanych zadań na dziś" type="info"/>
 
-                }
-            </div>
+        if (typeof this.props.tasks !== 'undefined') {
+            return (
 
-        );
+                <div className="list-group">
+                    {this.props.tasks.map((task, i) => <WorkflowElem {... this.props}
+                                                                     onClick={this.handleChangeBlock.bind(this)}
+                                                                     block={this.state.block_all} key={i} i={i}
+                                                                     task={task}
+                                                                     blockAccept={this.props.type == 'grawernia' ? task.graphic_block : false }
+                        />
+                    )}
+
+                    {this.props.tasks.length == 0 &&
+                    <Alert display={true} message="Brak przypisanych zadań na dziś" type="info"/>
+
+                    }
+                </div>
+            );
+        }
+        else {
+
+            return <div className={style.blockCenter}><CircularProgress size={100} thickness={5}/></div>
+
+        }
     }
-
 }
 
 function mapStateToProps(state) {

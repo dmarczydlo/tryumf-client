@@ -3,6 +3,8 @@ $border-color-dark: rgb(191, 191, 191);
 $success-color: #C8E6C9;
 $info-color: #B2EBF2;
 $error-color: #FFCDD2;
+$error-color-text: #F44336;
+
 $color-blue: rgb(0, 188, 212);
 .container {
 
@@ -159,6 +161,11 @@ $color-blue: rgb(0, 188, 212);
   background: $error-color;
 }
 
+.errorColor {
+  color: $error-color-text;
+  font-weight: bold;
+}
+
 .success {
   background: $success-color;
 }
@@ -235,8 +242,8 @@ $color-blue: rgb(0, 188, 212);
 .marginBottom12 {
   margin-bottom: 12px;
 }
-.marginTop4
-{
+
+.marginTop4 {
   margin-top: 4px;
 }
 
@@ -245,7 +252,6 @@ $color-blue: rgb(0, 188, 212);
   margin-top: -1px;
 }
 
-.alingRight
-{
+.alingRight {
   text-align: right;
 }
