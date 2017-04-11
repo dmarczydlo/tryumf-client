@@ -8,13 +8,46 @@ import Avatar from 'material-ui/Avatar';
 import LinearProgress from 'material-ui/LinearProgress';
 import statusGet from '../../utils/statusGet';
 import {formattedSeconds} from '../../utils/formattedSeconds';
+import Lightbox from 'react-image-lightbox';
+import {HOST_SERVER} from '../../variables';
 
+const customStyles = {
+    overlay: {
+        zIndex: '1900'
+    }
+}
 
 class BlockReview extends React.Component {
+
+
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isOpen: false
+        }
+    }
+
+    handlerShow = () => {
+        this.setState(
+            {
+                isOpen: true
+            }
+        );
+    };
+
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.userData.toDoTime > 0)
+            this.text = 'Zapas';
+        else this.text = 'Strata';
+    }
+
+
     render() {
         const {userData} = this.props;
 
-        const color = userData.all_time <= userData.time ? style.success : style.error;
+        const color = userData.work_time <= userData.time ? style.success : style.error;
         return (
             <div className={'col-xs-12 col-sm-6 col-md-4'}>
                 <Paper className={style.blockReview} zDepth={3}>
@@ -28,29 +61,40 @@ class BlockReview extends React.Component {
                                     <span>{userData.name}</span>
                                     <span>{userData.surname}</span>
                                 </div>
-                                <div>
-                                    <strong>Aktualne zadanie</strong>
+
+                                <div className="col-xs-12 col-sm-8">
+                                    <div>
+                                        <strong>Aktualne zadanie</strong>
+                                    </div>
+
+                                    <div>
+                                        Zamówinie: #{userData.order_number}
+                                    </div>
+
+                                    <div>
+                                        Produkt: {userData.productID}
+                                    </div>
+                                    <div>
+                                        Typ: {userData.type}
+                                    </div>
                                 </div>
 
-                                <div>
-                                    Zamówinie: #{userData.order_number}
-                                </div>
 
-                                <div>
-                                    Produkt: {userData.productID}
+
+                                <div className={"col-xs-12 col-sm-4 " + style.displayImage}>
+                                    <img src={HOST_SERVER + userData.image}
+                                         onClick={this.handlerShow}/>
                                 </div>
-                                <div>
-                                    Typ: {userData.type}
-                                </div>
+                                <div className="clearfix"></div>
                                 <div className={"col-xs-12 col-sm-6 " + style.no_padding}>
                                     Czas: {formattedSeconds(userData.time)}
                                 </div>
                                 <div className={"col-xs-12 col-sm-6 " + style.no_padding}>
-                                    Praca: {formattedSeconds(userData.all_time != null ? userData.all_time : 0)}
+                                    Praca: {formattedSeconds(userData.work_time != null ? userData.work_time : 0)}
                                 </div>
                                 <div className="clearfix"></div>
                                 <LinearProgress mode="determinate"
-                                                value={userData.all_time != null ? parseInt(userData.all_time) : 0}
+                                                value={userData.work_time != null ? parseInt(userData.work_time) : 0}
                                                 max={userData.time}/>
 
                                 <div className={style.marginTop4}>
@@ -68,13 +112,31 @@ class BlockReview extends React.Component {
                                                 value={parseInt(userData.sumTime)}
                                                 max={parseInt(userData.maxTime)}/>
 
+                                <div
+                                    className={style.center + ' ' + style.marginTop4 + ' ' + (userData.toDoTime > 0 ? style.success : style.error) }>
+
+                                    {this.text + ' ' + formattedSeconds(Math.abs(userData.toDoTime))}
+                                </div>
+
                             </div>
                             <div className="clearfix"></div>
+
+
                         </div>
                         <div
                             className={style.status + ' ' + color + ' ' + style.center }>
                             Status: {statusGet(userData.status)}
                         </div>
+
+                        {this.state.isOpen &&
+                        <Lightbox
+                            reactModalStyle={customStyles}
+                            mainSrc={HOST_SERVER + userData.image}
+                            onCloseRequest={() => this.setState({isOpen: false})}
+                            enableZoom={true}
+                        />
+                        }
+
                     </div>
                 </Paper>
             </div>

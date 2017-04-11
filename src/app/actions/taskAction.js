@@ -23,12 +23,6 @@ export function setTaskUser(userTasks) {
 
 }
 
-export function startTaskUser(time_id, task_id) {
-    return {
-        type: START_TASK,
-        work: {time_id, task_id}
-    }
-}
 
 export function acceptTaskUser(task_id, i) {
     return {
@@ -63,12 +57,8 @@ export function getTaskTodayRequest(user_id, date = getToday()) {
     }
 }
 
-export function startTaskUserRequest(user_data) {
-    return dispatch => {
-        return axios.post(API_PATH + 'task/start_task', qs.stringify(user_data)).then(res => {
-            dispatch(startTaskUser(res.data.time_id, res.data.task_id));
-        });
-    }
+export function startTaskUserRequest(user_task_id) {
+    return axios.post(API_PATH + 'task/start_task', qs.stringify({user_task_id}));
 }
 
 export function stopTaskUserRequest(task_id) {
@@ -94,12 +84,12 @@ export function setTaskToUserRequest(task_id, user_id, schedule_day) {
     return axios.post(API_PATH + 'task/set_task', qs.stringify({task_id, user_id, schedule_day}));
 }
 
-export function removeTaskToUserRequest(task_id,user_id,schedule_day) {
-    return axios.post(API_PATH + 'task/remove_task', qs.stringify({task_id, user_id, schedule_day}));
+export function removeTaskToUserRequest(user_task_id) {
+    return axios.post(API_PATH + 'task/remove_task', qs.stringify({user_task_id}));
 
 }
 
-export function moveTaskToUserRequest(task_id, user_id, schedule_day, order_num) {
-    return axios.post(API_PATH + 'task/move_task', qs.stringify({task_id, user_id, schedule_day, order_num}));
+export function moveTaskToUserRequest(user_task_id, order_num) {
+    return axios.post(API_PATH + 'task/move_task', qs.stringify({user_task_id, order_num}));
 }
 

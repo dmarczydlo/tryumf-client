@@ -14,8 +14,17 @@ import WorkflowElem from './WorkflowElem';
 import Alert from './Alert';
 import style from '../style/mail.scss';
 import CircularProgress from 'material-ui/CircularProgress';
+import {MAX_WORK_TIME} from '../variables';
 
 class Workflow extends React.Component {
+
+    getSumTime = () => {
+        const sumTime = Object.keys(this.props.tasks).reduce((acc, value) => acc + this.props.tasks[value].time, 0)
+        if (sumTime > MAX_WORK_TIME)
+            return false;
+        else return true;
+    };
+
 
     handleChangeBlock = (type) => {
         if (type == 'start') {
@@ -41,10 +50,13 @@ class Workflow extends React.Component {
             }
     }
 
-    componentWillMount() {
-        this.props.getTaskTodayRequest(this.props.user_id).then(
 
-        );
+    componentWillMount() {
+        this.props.getTaskTodayRequest(this.props.user_id);
+        if (!this.getSumTime())
+            this.block_all({
+                block: true
+            })
     }
 
     render() {
@@ -80,7 +92,6 @@ function mapStateToProps(state) {
     return {
         tasks: state.userTask,
         user_id: state.auth.user.sub,
-        work: state.work
     };
 }
 

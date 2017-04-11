@@ -15,11 +15,17 @@ export default class Layout extends React.Component {
         this.setState({openSidebar: !this.state.openSidebar})
     };
 
+    logoutToogle = () => {
+        this.setState({openSidebar: false})
+    }
+
+
+
     render() {
         return (
             <div>
                 <Header className='header' leftIconClick={this.handleToggleSidebar.bind(this)}/>
-                <Sidebar toggleSidebar={this.handleToggleSidebar.bind(this)} open={this.state.openSidebar}/>
+                <Sidebar toggleSidebar={this.handleToggleSidebar.bind(this)} logoutToogle={this.logoutToogle} open={this.state.openSidebar}/>
                 <div className={style.container}>
 
                     {this.props.children}

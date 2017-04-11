@@ -80,7 +80,7 @@ class Container extends Component {
 
 
         if (this.state.user_id > 0 && this.props.id == 2) {
-            removeTaskToUserRequest(card.task_id, this.state.user_id, this.state.date);
+            removeTaskToUserRequest(card.user_task_id);
         }
 
         this.setState(update(this.state, {
@@ -102,7 +102,7 @@ class Container extends Component {
         const {cards} = this.state;
         const dragCard = cards[dragIndex];
 
-        moveTaskToUserRequest(card.task_id, this.state.user_id, this.state.date, hoverIndex);
+        moveTaskToUserRequest(card.user_task_id, hoverIndex);
 
         this.setState(update(this.state, {
             cards: {

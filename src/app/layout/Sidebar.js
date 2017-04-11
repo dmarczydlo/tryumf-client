@@ -10,6 +10,7 @@ class Sidebar extends React.Component {
     logout(e) {
         e.preventDefault();
         this.props.logout();
+        this.props.logoutToogle();
         this.context.router.push('/login');
     }
 

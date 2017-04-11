@@ -25,7 +25,7 @@ class WorkflowElem extends React.Component {
             display_time: true,
             disableAccept: this.props.task.sum_time > 0 ? false : true,
             time: this.props.task.sum_time > 0 ? parseInt(this.props.task.sum_time) : 0,
-            internalId: null,
+            internalId: 0,
             block_all: false,
             modal_open: false,
             display: true
@@ -88,20 +88,14 @@ class WorkflowElem extends React.Component {
                     time: this.state.time + 1
                 }), 1000);
 
-            let user_start = {
-                task_id: this.props.task.task_id,
-                section: this.props.type,
-                user_task_id: this.props.task.user_task_id
-            };
-
-            this.props.startTaskUserRequest(user_start);
-            this.props.onClick('start');
-
             this.setState(
                 {
                     internalId: internal_id
                 }
             );
+
+            this.props.startTaskUserRequest(this.props.task.user_task_id);
+            this.props.onClick('start');
 
         } else {
             this.setState({
@@ -109,8 +103,6 @@ class WorkflowElem extends React.Component {
                 disableAccept: false,
             });
             this.props.stopTaskUserRequest(this.props.task.user_task_id);
-
-
             clearInterval(this.state.internalId);
             this.props.onClick('stop');
         }

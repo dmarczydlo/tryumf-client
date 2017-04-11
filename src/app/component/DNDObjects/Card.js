@@ -99,7 +99,7 @@ const cardSource = {
             return false;
         }
         //2,4,5,7 or 5 -- running task's
-        if (props.listId == 2 && [2, 4, 5, 7].find(x => x === props.card.status)) {
+        if (props.listId == 2 && [2, 4, 5, 7].find(x => x === props.card.status_internal)) {
             props.showProps(ERROR_TASK_IN_PROGRESS);
             return false;
         }
