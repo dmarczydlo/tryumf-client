@@ -120,18 +120,19 @@ class WorkflowElem extends React.Component {
                     </div>
                     <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7">
                         <div className={style.header_line1}>
-                            [Prod:{this.props.task.productID} <strong>#{this.props.task.order_number}</strong>
-                            - {this.props.task.client}]
+                            Kod: <strong>{this.props.task.productID}</strong> [#{this.props.task.order_number}]
+                            Klient: <strong>{this.props.task.client}</strong>
                             <Timer display={this.state.display_time}
                                    value={this.state.time}
                                    block={this.state.block_all}
                             />
-
                         </div>
                         <div className={style.header_line2}>
                             <span> Czas: <strong>{this.props.task.time / 60} min</strong> </span>
                             <span> Prio: <strong>{this.props.task.prio}</strong></span>
                             <span> Status: <strong>{this.props.task.status}</strong></span>
+                            <span> Data zakupu: <strong>{this.props.task.date}</strong></span>
+
                         </div>
                         {this.props.task.graphic_block &&
                         <div className={style.errorColor}>Wymaga akceptacji działu grafika</div>}
