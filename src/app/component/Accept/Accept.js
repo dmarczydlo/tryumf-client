@@ -81,6 +81,8 @@ class Accept extends React.Component {
                     <TableHeaderColumn width={'15%'} dataSort={true}
                                        dataField='order_number'>Zamówienie</TableHeaderColumn>
                     <TableHeaderColumn width={'5%'} dataSort={true} dataField='type'>Typ</TableHeaderColumn>
+                    <TableHeaderColumn width={'5%'} dataSort={true} dataField='eq'>Ilość</TableHeaderColumn>
+
                     <TableHeaderColumn width={'15%'} dataSort={true} dataFormat={timeFormatter} dataField='work_time'>Czas
                         pracy</TableHeaderColumn>
 

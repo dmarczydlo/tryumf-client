@@ -74,7 +74,7 @@ class BlockReview extends React.Component {
                                         Produkt: {userData.productID}
                                     </div>
                                     <div>
-                                        Typ: {userData.type}
+                                        <span>Typ: {userData.type}</span>  <span>Ilość: {userData.eq}</span>
                                     </div>
                                 </div>
 

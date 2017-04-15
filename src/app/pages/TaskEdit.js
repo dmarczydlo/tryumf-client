@@ -62,6 +62,8 @@ class TaskEdit extends React.Component {
                                 <div>Data zamówienia: {task.date}</div>
                                 <div>Aktualny status: <strong>{statusGet(task.status)}</strong></div>
                                 <div>Czas pracy: {formattedSeconds(task.work_time)}</div>
+                                <div>Ilość: {task.eq}</div>
+
                             </CardText>
                             <CardActions>
                                 <FlatButton className={style.button_right_only} label="Reklamacja" secondary={true}
