@@ -97,12 +97,11 @@ class Container extends Component {
 
     }
 
-    moveCard(dragIndex, hoverIndex, card) {
-        // console.log('move' + this.state.user_id + ' elem ' + hoverIndex);
+    moveCard(dragIndex, hoverIndex) {
+
         const {cards} = this.state;
         const dragCard = cards[dragIndex];
-
-        moveTaskToUserRequest(card.user_task_id, hoverIndex);
+        moveTaskToUserRequest(dragCard.user_task_id, hoverIndex);
 
         this.setState(update(this.state, {
             cards: {
