@@ -40,6 +40,7 @@ export const avatarValue = [
 export const REFRESH_SET_DATA = 300000;
 export const REFRESH_VIEW_DATA = 5000;
 export const MAX_WORK_TIME = 20700;
+export const EXTRA_WORK_TIME = 7200;
 
 export const ERROR_NO_TIME_TO_WORK = 'Ten pracownik nie ma wystarczająco czasu w tym dniu na to zadanie';
 export const ERROR_TASK_IN_PROGRESS = 'To zadanie trwa. Musi zostać zakończone';

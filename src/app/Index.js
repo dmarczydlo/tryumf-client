@@ -12,6 +12,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Users from './pages/User/Users';
 import UserEditAdd from './pages/User/Edit_Add';
+import TaskEdit from './pages/TaskEdit';
 import Authentication from './utils/authenticate';
 
 class Index extends Component {
@@ -24,6 +25,7 @@ class Index extends Component {
                         <IndexRoute component={Home}/>
                         <Route path="login" component={Login}/>
                         <Route path="profile" component={Profile}/>
+                        <Route path="edit/:id" component={TaskEdit}/>
                         <Route path="users" component={Authentication(Users, 'admin')}/>
                         <Route path="users/add" component={Authentication(UserEditAdd, 'admin')}/>
                         <Route path="users/edit/:id" component={Authentication(UserEditAdd, 'admin')} />

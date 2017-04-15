@@ -20,7 +20,6 @@ const customStyles = {
 class BlockReview extends React.Component {
 
 
-
     constructor(props) {
         super(props);
         this.state = {
@@ -62,7 +61,7 @@ class BlockReview extends React.Component {
                                     <span>{userData.surname}</span>
                                 </div>
 
-                                <div className="col-xs-12 col-sm-8">
+                                <div className={"col-xs-12 col-sm-9 " + style.no_padding}>
                                     <div>
                                         <strong>Aktualne zadanie</strong>
                                     </div>
@@ -80,8 +79,7 @@ class BlockReview extends React.Component {
                                 </div>
 
 
-
-                                <div className={"col-xs-12 col-sm-4 " + style.displayImage}>
+                                <div className={"col-xs-12 col-sm-3 " + style.displayImage + ' '+ style.no_padding}>
                                     <img src={HOST_SERVER + userData.image}
                                          onClick={this.handlerShow}/>
                                 </div>

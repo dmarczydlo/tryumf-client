@@ -71,8 +71,6 @@ class WorkflowElem extends React.Component {
         const index = this.props.tasks.findIndex((taks) => taks.user_task_id === this.props.task.user_task_id);
         this.props.acceptTaskUserRequest(this.props.task.user_task_id, index);
         this.setState({display: false});
-
-
     }
 
 
@@ -109,10 +107,11 @@ class WorkflowElem extends React.Component {
     };
 
     render() {
+        const color = this.props.task.reclamation == 1 ? style.reclamation : '';
         return (
 
             <div
-                className={"list-group-item list-group-item-action " + (this.state.labelButton === 'Stop' ? style.run : style.unrun) + (this.state.time > this.props.task.time ? ' ' + style.warning : '') + ' ' + (this.state.display ? '' : style.hide) }>
+                className={color + " list-group-item list-group-item-action " + (this.state.labelButton === 'Stop' ? style.run : style.unrun) + (this.state.time > this.props.task.time ? ' ' + style.warning : '') + ' ' + (this.state.display ? '' : style.hide) }>
                 <div className={style.displayImage}>
                     <div className={"col-xs-2 col-sm-2 col-md-1 col-lg-1 " + style.no_padding}>
                         <img src={HOST_SERVER + this.props.task.image_url}
@@ -135,7 +134,10 @@ class WorkflowElem extends React.Component {
 
                         </div>
                         {this.props.task.graphic_block &&
-                        <div className={style.errorColor}>Wymaga akceptacji działu grafika</div>}
+                             <div className={style.errorColor}>Wymaga akceptacji działu grafika</div>}
+                        {this.props.task.reclamation == 1 &&
+                             <div className={style.center}><strong>Reklamacja</strong></div>
+                        }
                     </div>
 
                     <div className="col-xs-3 col-sm-3 col-md-4 col-lg-4">

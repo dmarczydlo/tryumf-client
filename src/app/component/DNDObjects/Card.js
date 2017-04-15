@@ -34,9 +34,10 @@ class Card extends Component {
     render() {
         const {card, isDragging, connectDragSource, connectDropTarget} = this.props;
         const opacity = isDragging ? 0 : 1;
+        const color = card.reclamation == 1 ? style.reclamation : '';
 
         return connectDragSource(connectDropTarget(
-            <div className={style.containerElement}>
+            <div className={style.containerElement + ' ' + color}>
 
                 <div
                     className={"col-xs-2 col-sm-2 col-md-1 col-lg-1 " + style.no_padding + ' ' + style.displayImageElement}>
@@ -56,8 +57,10 @@ class Card extends Component {
                         <span>Czas: <strong>[{card.time / 60}] min</strong></span>
                         <span>Poziom um.: <strong>{card.min_lvl}</strong></span>
                         <span>Data zak.: <strong>{card.date}</strong></span>
-
                     </div>
+                    {card.reclamation &&
+                        <div className={style.center}><strong>Reklamacja</strong></div>
+                    }
                 </div>
                 <div className="clearfix"></div>
 

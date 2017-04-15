@@ -8,7 +8,6 @@ $error-color-text: #F44336;
 $color-blue: rgb(0, 188, 212);
 .container {
 
-  padding: 10px;
   margin-top: 10px;
   .table_my {
     table {
@@ -17,14 +16,15 @@ $color-blue: rgb(0, 188, 212);
 
     thead > tr > th {
       padding: 0px !important;
-      font-size: 11px;
+      font-size: 12px;
       text-align: center !important;
       cursor: pointer;
     }
     td {
-      font-size: 11px !important;
-      padding: 4px !important;
+      font-size: 12px !important;
+      padding: 5px !important;
       text-align: right !important;
+      vertical-align: text-bottom;
     }
   }
   .loginForm {
@@ -74,6 +74,14 @@ $color-blue: rgb(0, 188, 212);
       width: 50px;
       height: 50px;
       border-radius: 50px;
+      cursor: pointer;
+    }
+  }
+  .displayImageMin {
+    img {
+      width: 25px;
+      height: 25px;
+      border-radius: 25px;
       cursor: pointer;
     }
   }
@@ -256,3 +264,23 @@ $color-blue: rgb(0, 188, 212);
   text-align: right;
 }
 
+.reclamation {
+  background: $error-color !important;
+}
+
+@media (min-width: 769px) {
+  .centerImg {
+    img {
+      transform: translate(50%, 0%);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .centerImg {
+    text-align: center;
+  }
+  img {
+    margin-top: 10px;
+  }
+}

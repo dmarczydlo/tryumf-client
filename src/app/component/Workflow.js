@@ -14,13 +14,13 @@ import WorkflowElem from './WorkflowElem';
 import Alert from './Alert';
 import style from '../style/mail.scss';
 import CircularProgress from 'material-ui/CircularProgress';
-import {MAX_WORK_TIME} from '../variables';
+import {MAX_WORK_TIME, EXTRA_WORK_TIME} from '../variables';
 
 class Workflow extends React.Component {
 
     getSumTime = () => {
         const sumTime = Object.keys(this.props.tasks).reduce((acc, value) => acc + this.props.tasks[value].time, 0)
-        if (sumTime > MAX_WORK_TIME)
+        if (sumTime > MAX_WORK_TIME + EXTRA_WORK_TIME)
             return false;
         else return true;
     };

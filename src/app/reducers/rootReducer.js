@@ -9,6 +9,9 @@ import work from './work';
 import settasks from './setTasks';
 import userTask from './userTask';
 import online from './online';
+import accept from './accept';
+import taskDetail from './taskDetail';
+
 
 export default combineReducers({
     auth,
@@ -19,5 +22,7 @@ export default combineReducers({
     work,
     settasks,
     userTask,
-    online
+    online,
+    accept,
+    taskDetail
 });

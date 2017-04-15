@@ -33,9 +33,9 @@ export function getUsersFromGroupRequest(group_id) {
     }
 }
 
-export function getEmployeeTaskOnlineRequest(group_id) {
+export function getEmployeeTaskOnlineRequest() {
     return dispatch => {
-        return axios.get(API_PATH + 'task/online_data/' + group_id).then(res => {
+        return axios.get(API_PATH + 'task/online_data').then(res => {
             dispatch(getEmployeeOnlineData(res.data.data));
         });
     }

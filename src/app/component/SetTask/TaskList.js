@@ -54,7 +54,7 @@ class TaskList extends React.Component {
                     }
                 );
 
-                const sumValues = Object.keys(nextProps.userTask).reduce((acc, value) => acc + nextProps.userTask[value].time, 0);
+                const sumValues = Object.keys(nextProps.userTask).reduce((acc, value) => acc + nextProps.userTask[value].reclamation == 0 ? nextProps.userTask[value].time : 0, 0);
                 this.child.changeUserData(nextProps.userTask);
                 this.setState({sumTime: sumValues});
             }
@@ -126,7 +126,9 @@ class TaskList extends React.Component {
 
         return (
             <div className={style.containerDND}>
-                <div className={style.alingRight}>Dane odświeżają się co {formattedSeconds(REFRESH_SET_DATA/1000)} min</div>
+                <div className={style.alingRight}>Dane odświeżają się co {formattedSeconds(REFRESH_SET_DATA / 1000)}
+                    min
+                </div>
 
                 <div className="col-md-6 col-xs-12">
                     <label className={style.label}>Data</label>

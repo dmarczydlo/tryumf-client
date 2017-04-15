@@ -6,17 +6,17 @@ import React from 'react';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MapsPersonPin from 'material-ui/svg-icons/maps/person-pin';
+import ActionDone from 'material-ui/svg-icons/action/done-all';
 import SocialPersonAdd from 'material-ui/svg-icons/social/person-add';
 import ActionBuild from 'material-ui/svg-icons/action/build';
-
-
+import Accept from '../component/Accept/Accept';
 import SwipeableViews from 'react-swipeable-views';
 import ContainerReview from '../component/Review/ContainerReview';
 import TaskContainer from '../component/SetTask/SetTaskContainer';
 import AdminTasks from '../component/AdminTasks';
-import {getUsersFromGroupRequest, getEmployeeTaskOnlineRequest} from '../actions/employeeAction';
+import {getUsersFromGroupRequest, getEmployeeTaskOnlineRequest,} from '../actions/employeeAction';
 import {connect} from 'react-redux';
-import {getTaskToSetRequest, getTasksListRequest} from '../actions/taskAction';
+import {getTaskToSetRequest, getTasksListRequest, getAcceptedTasksListRequest} from '../actions/taskAction';
 import {REFRESH_SET_DATA, REFRESH_VIEW_DATA} from '../variables';
 import style from '../style/mail.scss';
 import CircularProgress from 'material-ui/CircularProgress';
@@ -32,19 +32,13 @@ class Admin extends React.Component {
 
 
     timer() {
+        this.props.getAcceptedTasksListRequest();
         this.props.getTaskToSetRequest();
     }
 
+
     timer_online() {
-
-        if (this.GROUP == 'kierownik grawernii')
-            this.props.getEmployeeTaskOnlineRequest(3);
-        else if (this.GROUP == 'kierownik grafiki')
-            this.props.getEmployeeTaskOnlineRequest(2);
-        else if (this.GROUP == 'admin')
-            this.props.getEmployeeTaskOnlineRequest(1);
-
-
+        this.props.getEmployeeTaskOnlineRequest();
     }
 
     refreshDataBySet = () => {
@@ -66,6 +60,7 @@ class Admin extends React.Component {
 
     componentWillMount() {
         this.props.getTaskToSetRequest();
+        this.props.getAcceptedTasksListRequest();
         if (this.GROUP == 'admin') {
             this.props.getTasksListRequest();
             this.props.getEmployeeTaskOnlineRequest(1);
@@ -88,6 +83,7 @@ class Admin extends React.Component {
 
     render() {
         if (( this.GROUP == 'admin' && typeof this.props.tasks_set['graphic'] !== 'undefined'
+            && typeof  this.props.accepted != 'undefined'
             && typeof this.props.tasks !== 'undefined'
             && typeof this.props.employee[2] !== 'undefined'
             && typeof this.props.employee[3] !== 'undefined')) {
@@ -99,6 +95,7 @@ class Admin extends React.Component {
             );
         }
         else if ((this.GROUP == 'kierownik grafiki' || this.GROUP == 'kierownik grawernii') &&
+            typeof  this.props.accepted != 'undefined' &&
             (this.GROUP == 'kierownik grafiki' ?
                 typeof this.props.tasks_set['graphic'] !== 'undefined' :
                 typeof this.props.tasks_set['graver'] !== 'undefined') &&
@@ -109,7 +106,7 @@ class Admin extends React.Component {
         ) {
             return (
                 <div>
-                    {adminItems(this.GROUP, this.handleChange, this.state.slideIndex, this.props.tasks, this.props.tasks_set, this.props.employee,  this.props.onlineData)}
+                    {adminItems(this.GROUP, this.handleChange, this.state.slideIndex, this.props.tasks, this.props.tasks_set, this.props.employee, this.props.onlineData, this.props.accepted)}
                     {adminTabs(this.GROUP, this.handleChange, this.state.slideIndex)}
                 </div>
             );
@@ -147,6 +144,11 @@ function adminTabs(GROUP, handleChange, slideIndex) {
                     value={3}
                     label="Kontrola"
                 />
+                <Tab
+                    icon={<ActionDone />}
+                    value={4}
+                    label="Zadania zaakceptowane"
+                />
             </Tabs>
         );
     } else if (GROUP == 'kierownik grafiki') {
@@ -166,6 +168,11 @@ function adminTabs(GROUP, handleChange, slideIndex) {
                     value={1}
                     label="Kontrola"
                 />
+                <Tab
+                    icon={<ActionDone />}
+                    value={2}
+                    label="Zadania zaakceptowane"
+                />
             </Tabs>
         );
     }
@@ -181,17 +188,25 @@ function adminTabs(GROUP, handleChange, slideIndex) {
                     value={0}
                     label="Zadania Grawernia"
                 />
+
                 <Tab
                     icon={<MapsPersonPin />}
                     value={1}
                     label="Kontrola"
                 />
+
+                <Tab
+                    icon={<ActionDone />}
+                    value={2}
+                    label="Zadania zaakceptowane"
+                />
+
             </Tabs>
         );
     }
 }
 
-function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee,  onlineData) {
+function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee, onlineData, accepted) {
 
     if (GROUP == 'admin') {
         return (
@@ -202,14 +217,18 @@ function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee,
                     <AdminTasks tasks={tasks}/>
                 </div>
                 <div>
-                    <TaskContainer  tasks={tasks_set['graphic']} employee={employee[2]}/>
+                    <TaskContainer tasks={tasks_set['graphic']} employee={employee[2]}/>
                 </div>
                 <div>
-                    <TaskContainer  tasks={tasks_set['graver']} employee={employee[3]}/>
+                    <TaskContainer tasks={tasks_set['graver']} employee={employee[3]}/>
                 </div>
                 <div>
-                    <ContainerReview  type={'admin'} onlineData={onlineData}/>
+                    <ContainerReview type={'admin'} onlineData={onlineData}/>
                 </div>
+                <div>
+                    <Accept acceptData={accepted}/>
+                </div>
+
             </SwipeableViews>
 
         );
@@ -221,11 +240,16 @@ function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee,
                 index={slideIndex}
                 onChangeIndex={handleChange}>
                 <div>
-                    <TaskContainer  tasks={tasks_set['graphic']} employee={employee[2]}/>
+                    <TaskContainer tasks={tasks_set['graphic']} employee={employee[2]}/>
                 </div>
                 <div>
-                    <ContainerReview  type={'graphic'} onlineData={onlineData}/>
+                    <ContainerReview type={'graphic'} onlineData={onlineData}/>
                 </div>
+
+                <div>
+                    <Accept acceptData={accepted}/>
+                </div>
+
             </SwipeableViews>
         );
 
@@ -240,7 +264,10 @@ function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee,
                 </div>
 
                 <div>
-                    <ContainerReview  type={'graver'} onlineData={onlineData}/>
+                    <ContainerReview type={'graver'} onlineData={onlineData}/>
+                </div>
+                <div>
+                    <Accept acceptData={accepted}/>
                 </div>
 
             </SwipeableViews>
@@ -254,16 +281,17 @@ function mapStateToProps(state) {
         tasks_set: state.settasks,
         tasks: state.tasks,
         employee: state.employee,
-        onlineData: state.online
+        onlineData: state.online,
+        accepted: state.accept
     };
 }
 
 Admin.propTypes = {
-    getTasksListRequest: React.PropTypes.func.isRequired
-};
-
-Admin.propTypes = {
-    getTaskToSetRequest: React.PropTypes.func.isRequired
+    getTaskToSetRequest: React.PropTypes.func.isRequired,
+    getTasksListRequest: React.PropTypes.func.isRequired,
+    getUsersFromGroupRequest: React.PropTypes.func.isRequired,
+    getEmployeeTaskOnlineRequest: React.PropTypes.func.isRequired,
+    getAcceptedTasksListRequest: React.PropTypes.func.isRequired
 };
 
 
@@ -271,5 +299,6 @@ export default connect(mapStateToProps, {
     getTaskToSetRequest,
     getTasksListRequest,
     getUsersFromGroupRequest,
-    getEmployeeTaskOnlineRequest
+    getEmployeeTaskOnlineRequest,
+    getAcceptedTasksListRequest
 })(Admin);
