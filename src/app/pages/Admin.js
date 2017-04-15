@@ -89,7 +89,7 @@ class Admin extends React.Component {
             && typeof this.props.employee[3] !== 'undefined')) {
             return (
                 <div>
-                    {adminItems(this.GROUP, this.handleChange, this.state.slideIndex, this.props.tasks, this.props.tasks_set, this.props.employee, this.props.onlineData)}
+                    {adminItems(this.GROUP, this.handleChange, this.state.slideIndex, this.props.tasks, this.props.tasks_set, this.props.employee, this.props.onlineData,  this.props.accepted)}
                     {adminTabs(this.GROUP, this.handleChange, this.state.slideIndex)}
                 </div>
             );
@@ -225,9 +225,11 @@ function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee,
                 <div>
                     <ContainerReview type={'admin'} onlineData={onlineData}/>
                 </div>
+
                 <div>
                     <Accept acceptData={accepted}/>
                 </div>
+
 
             </SwipeableViews>
 
@@ -266,6 +268,7 @@ function adminItems(GROUP, handleChange, slideIndex, tasks, tasks_set, employee,
                 <div>
                     <ContainerReview type={'graver'} onlineData={onlineData}/>
                 </div>
+
                 <div>
                     <Accept acceptData={accepted}/>
                 </div>

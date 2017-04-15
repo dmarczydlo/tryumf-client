@@ -12,7 +12,7 @@ import IconButton from 'material-ui/IconButton';
 import ActionEdit from 'material-ui/svg-icons/content/send';
 
 
-const options = {
+const options_table = {
     sizePerPage: 15,
     defaultSortName: 'date',
     defaultSortOrder: 'desc'
@@ -64,8 +64,9 @@ class Accept extends React.Component {
 
     render() {
         return (
+
             <div className={style.table_my + ' col-xs-12'}>
-                <BootstrapTable tableStyle={ {width: '100%'}} maxHeight={'250px'} options={options}
+                <BootstrapTable tableStyle={ {width: '100%'}} maxHeight={'250px'} options={options_table}
                                 data={this.props.acceptData} striped
                                 hover
                                 search multiColumnSearch pagination>

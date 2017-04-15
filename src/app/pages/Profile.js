@@ -14,6 +14,7 @@ import {connect} from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import {updateProfileRequest} from '../actions/userActions';
 import Snackbar from 'material-ui/Snackbar';
+import CircularProgress from 'material-ui/CircularProgress';
 class Profile extends React.Component {
 
 
@@ -62,68 +63,70 @@ class Profile extends React.Component {
             avatar: this.state.avatar_select
         };
 
-        this.props.updateProfileRequest(this.props.user_id,saveVal).then(
-            ()=> {
+        this.props.updateProfileRequest(this.props.user_id, saveVal).then(
+            () => {
                 this.setState({message: 'Dane zostały zaktualizowane', showMessage: true})
 
             },
-            (err) =>
-            {
+            (err) => {
                 this.setState({message: err.response.data.error, showMessage: true})
             }
-
         );
 
     };
 
 
     render() {
-        return (
-            <div>
-                <Card>
-                    <CardHeader
-                        title={this.props.user.name + ' ' + this.props.user.surname}
-                        subtitle="Profil użytkownika"
-                        avatar={this.state.avatar_icon}
+        if (this.props.user.name != undefined) {
+            return (
+                <div>
+                    <Card>
+                        <CardHeader
+                            title={this.props.user.name + ' ' + this.props.user.surname}
+                            subtitle="Profil użytkownika"
+                            avatar={this.state.avatar_icon}
+                        />
+                        <span
+                            className={style.profileLabel}>Poziom uprawnień: <strong>{this.props.user.level}</strong></span>
+                        <span className={style.profileLabel}>Email: <strong>{this.props.user.email}</strong></span>
+
+                        <TextField
+                            className={style.profileLabel}
+                            floatingLabelText="Hasło"
+                            ref="password"
+                        />
+                        <br/>
+                        <SelectField
+                            className={style.profileLabel}
+                            ref='avatar'
+                            floatingLabelText='Avatar'
+                            value={this.state.avatar_select}
+                            name='avatar'
+                            onChange={this.handleAvatarChange}
+                            autoWidth={true}
+                        >
+                            {avatarValue.map(function (avatar) {
+                                return <MenuItem key={avatar.id} value={avatar.img} primaryText={avatar.name}/>
+                            })}
+                        </SelectField>
+
+                        <br/>
+                        <RaisedButton label="Aktualizuj profil" primary={true} className={style.buttonUpdate}
+                                      onTouchTap={this.handleClick}/>
+                    </Card>
+
+                    <Snackbar
+                        open={this.state.showMessage}
+                        message={this.state.message}
+                        autoHideDuration={4000}
+                        onRequestClose={this.handleRequestClose}
                     />
-                    <span
-                        className={style.profileLabel}>Poziom uprawnień: <strong>{this.props.user.level}</strong></span>
-                    <span className={style.profileLabel}>Email: <strong>{this.props.user.email}</strong></span>
 
-                    <TextField
-                        className={style.profileLabel}
-                        floatingLabelText="Hasło"
-                        ref="password"
-                    />
-                    <br/>
-                    <SelectField
-                        className={style.profileLabel}
-                        ref='avatar'
-                        floatingLabelText='Avatar'
-                        value={this.state.avatar_select}
-                        name='avatar'
-                        onChange={this.handleAvatarChange}
-                        autoWidth={true}
-                    >
-                        {avatarValue.map(function (avatar) {
-                            return <MenuItem key={avatar.id} value={avatar.img} primaryText={avatar.name}/>
-                        })}
-                    </SelectField>
-
-                    <br/>
-                    <RaisedButton label="Aktualizuj profil" primary={true} className={style.buttonUpdate}
-                                  onTouchTap={this.handleClick}/>
-                </Card>
-
-                <Snackbar
-                    open={this.state.showMessage}
-                    message={this.state.message}
-                    autoHideDuration={4000}
-                    onRequestClose={this.handleRequestClose}
-                />
-
-            </div>
-        );
+                </div>
+            );
+        } else {
+            return <div className={style.blockCenter}><CircularProgress size={100} thickness={5}/></div>
+        }
     }
 }
 

@@ -13,7 +13,7 @@ import {formattedSeconds} from '../utils/formattedSeconds';
 import FlatButton from 'material-ui/FlatButton';
 import statusGet from '../utils/statusGet';
 import Modal from '../component/Modal';
-import {browserHistory} from 'react-router';
+
 
 class TaskEdit extends React.Component {
 
