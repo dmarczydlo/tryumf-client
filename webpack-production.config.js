@@ -35,13 +35,34 @@ const config = {
     ], path.resolve(__dirname, 'src')),
   ],
   module: {
-    loaders: [
-      {
-        test: /\.js$/, // All .js files
-        loaders: ['babel-loader'], // react-hot is like browser sync and babel loads jsx and es6-7
-        exclude: [nodeModulesPath],
-      },
-    ],
+      loaders: [
+          { test: /\.js(x?)$/, loader: "babel-loader"},
+          { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader'},
+          {
+              test: /\.css$/,
+              loader: 'style-loader!css-loader?modules'
+          },
+
+          {
+              test: /\.sass/,
+              loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&indentedSyntax'
+          },
+          {
+              test: /\.scss/,
+              loader: 'style!css?modules&sourceMap&localIdentName=[local]___[hash:base64:5]!sass?outputStyle=expanded&sourceMap'
+          },
+          { test: /\.png$/, loader: "url-loader?limit=100000" },
+          { test: /\.jpg$/, loader: "file-loader" },
+          {
+              test: /\.(png|jpg|gif|woff|woff2)$/,
+              loader: 'url-loader?limit=8192'
+          },
+          {
+              test: /\.(mp4|ogg|svg)$/,
+              loader: 'file-loader'
+          }
+
+      ]
   },
 };
 

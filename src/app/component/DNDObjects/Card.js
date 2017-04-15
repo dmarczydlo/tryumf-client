@@ -55,8 +55,8 @@ class Card extends Component {
                     <div className={style.containerLineSecond}>
                         <span>Typ: <strong>{card.type}</strong></span>
                         <span>Czas: <strong>[{card.time / 60}] min</strong></span>
-                        <span>Poziom um.: <strong>{card.min_lvl}</strong></span>
-                        <span>Data zak.: <strong>{card.date}</strong></span>
+                        <span>Um.: <strong>{card.min_lvl}</strong></span>
+                        <span>Data: <strong>{card.date}</strong></span>
                         <span>Ilość: <strong>{card.eq}</strong></span>
                     </div>
                     {card.reclamation == 1 &&

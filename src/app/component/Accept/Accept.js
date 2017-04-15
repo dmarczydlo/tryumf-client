@@ -10,6 +10,7 @@ import {HOST_SERVER} from '../../variables';
 import Lightbox from 'react-image-lightbox';
 import IconButton from 'material-ui/IconButton';
 import ActionEdit from 'material-ui/svg-icons/content/send';
+import {Link} from 'react-router';
 
 
 const options_table = {
@@ -56,7 +57,7 @@ class Accept extends React.Component {
 
     editFormatter = (cell) => {
         return (
-            <IconButton href={'/#/edit/' + cell}>
+            <IconButton containerElement={<Link to={"/edit/"+ cell}/>} >
                 <ActionEdit />
             </IconButton>
         );

@@ -17,7 +17,7 @@ import style from '../../style/mail.scss';
 class LinkFormatter extends React.Component {
     render() {
         return (
-            <RaisedButton className={style.buttonEdit} primary={true} href={'/#/users/edit/' + this.props.link} icon={<EditIcon />}/>
+            <RaisedButton className={style.buttonEdit} primary={true} containerElement={<Link to={"/users/edit/"+ this.props.link}/>}  icon={<EditIcon />}/>
         );
     }
 }
