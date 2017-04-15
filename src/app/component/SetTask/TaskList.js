@@ -54,7 +54,11 @@ class TaskList extends React.Component {
                     }
                 );
 
-                const sumValues = Object.keys(nextProps.userTask).reduce((acc, value) => acc + nextProps.userTask[value].reclamation == 0 ? nextProps.userTask[value].time : 0, 0);
+                const sumValues = Object.keys(nextProps.userTask).reduce((acc, value) => {
+                        let res = acc + (nextProps.userTask[value].reclamation == 1 ? 0 : nextProps.userTask[value].time);
+                        return res;
+                    }, 0
+                );
                 this.child.changeUserData(nextProps.userTask);
                 this.setState({sumTime: sumValues});
             }
