@@ -1,0 +1,17 @@
+{
+  "api": {
+    "HOST_SERVER": "http://api.loc/",
+    "API_PATH": "http://api.loc/api/"
+  },
+  "time_variable": {
+    "REFRESH_SET_DATA": 300000,
+    "REFRESH_VIEW_DATA": 5000,
+    "MAX_WORK_TIME": 20700,
+    "EXTRA_WORK_TIME": 7200
+  },
+  "errors": {
+    "ERROR_NO_TIME_TO_WORK": "Ten pracownik nie ma wystarczająco czasu w tym dniu na to zadanie",
+    "ERROR_TASK_IN_PROGRESS": "To zadanie trwa. Musi zostać zakończone",
+    "ERROR_LEVEL": "Wybrany pracownik ma zbyt niskie kompetencje"
+  }
+}

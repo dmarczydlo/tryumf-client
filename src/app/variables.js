@@ -1,6 +1,7 @@
-export const HOST_SERVER = 'http://api.loc/';
-export const API_PATH = HOST_SERVER + 'api/';
+import config  from '!json!../www/config.json';
 
+export const HOST_SERVER = config.api.HOST_SERVER;
+export const API_PATH = config.api.API_PATH;
 
 export const groupValue = [
     {
@@ -37,13 +38,11 @@ export const avatarValue = [
     {id: 7, name: 'Kobieta 3', img: 'f3.png'},
     {id: 8, name: 'Kobieta 4', img: 'f4.png'},
 ];
-export const REFRESH_SET_DATA = 300000;
-export const REFRESH_VIEW_DATA = 5000;
-export const MAX_WORK_TIME = 20700;
-export const EXTRA_WORK_TIME = 7200;
+export const REFRESH_SET_DATA = config.time_variable.REFRESH_SET_DATA;
+export const REFRESH_VIEW_DATA = config.time_variable.REFRESH_VIEW_DATA;
+export const MAX_WORK_TIME = config.time_variable.MAX_WORK_TIME;
+export const EXTRA_WORK_TIME = config.time_variable.EXTRA_WORK_TIME;
 
-export const ERROR_NO_TIME_TO_WORK = 'Ten pracownik nie ma wystarczająco czasu w tym dniu na to zadanie';
-export const ERROR_TASK_IN_PROGRESS = 'To zadanie trwa. Musi zostać zakończone';
-export const ERROR_LEVEL = 'Wybrany pracownik ma zbyt niskie kompetencje';
-
-
+export const ERROR_NO_TIME_TO_WORK = config.errors.ERROR_NO_TIME_TO_WORK;
+export const ERROR_TASK_IN_PROGRESS = config.errors.ERROR_TASK_IN_PROGRESS;
+export const ERROR_LEVEL = config.errors.ERROR_LEVEL;
