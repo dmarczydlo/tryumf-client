@@ -47,8 +47,8 @@ const config = {
     ],
     module: {
         loaders: [
-            { test: /\.js(x?)$/, loader: "babel-loader"},
-            { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader'},
+            {test: /\.js(x?)$/, loader: "babel-loader"},
+            {test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader'},
             {
                 test: /\.css$/,
                 loader: 'style-loader!css-loader?modules'
@@ -62,8 +62,8 @@ const config = {
                 test: /\.scss/,
                 loader: 'style!css?modules&sourceMap&localIdentName=[local]___[hash:base64:5]!sass?outputStyle=expanded&sourceMap'
             },
-            { test: /\.png$/, loader: "url-loader?limit=100000" },
-            { test: /\.jpg$/, loader: "file-loader" },
+            {test: /\.png$/, loader: "url-loader?limit=100000"},
+            {test: /\.jpg$/, loader: "file-loader"},
             {
                 test: /\.(png|jpg|gif|woff|woff2)$/,
                 loader: 'url-loader?limit=8192'
@@ -71,6 +71,11 @@ const config = {
             {
                 test: /\.(mp4|ogg|svg)$/,
                 loader: 'file-loader'
+            },
+            {
+                test: /\.json$/,
+                loader: 'json-loader',
+                include: './www/config.json',
             }
 
         ],
