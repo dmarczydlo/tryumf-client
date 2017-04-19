@@ -3,7 +3,7 @@ const path = require('path');
 const buildPath = path.resolve(__dirname, 'build');
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
-
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = {
     // Entry points to the project
     entry: [
@@ -44,6 +44,9 @@ const config = {
         new TransferWebpackPlugin([
             {from: 'www'},
         ], path.resolve(__dirname, 'src')),
+        new HtmlWebpackPlugin({
+            favicon: __dirname + '/images/favicon.ico'
+        })
     ],
     module: {
         loaders: [

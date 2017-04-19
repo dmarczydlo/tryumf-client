@@ -1,10 +1,7 @@
 {
-  "name": "Tryumf design",
-  "version": "1.0.0",
-  "description": "Design for Tryumf app",
-  "repository": {
-    "type": "git"
-  },
+  "name": "tryumf-desing",
+  "version": "0.16.4",
+  "description": "Sample project that uses Material-UI",
   "scripts": {
     "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
     "build-dist": "webpack --config webpack-production.config.js --progress --colors"
