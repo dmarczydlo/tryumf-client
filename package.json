@@ -1,10 +1,9 @@
 {
-  "name": "material-ui-example-webpack",
-  "version": "0.16.4",
-  "description": "Sample project that uses Material-UI",
+  "name": "Tryumf design",
+  "version": "1.0.0",
+  "description": "Design for Tryumf app",
   "repository": {
-    "type": "git",
-    "url": "https://github.com/callemall/material-ui.git"
+    "type": "git"
   },
   "scripts": {
     "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
