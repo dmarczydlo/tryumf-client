@@ -6,6 +6,10 @@
     "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
     "build": "webpack --config webpack-production.config.js --progress --colors"
   },
+  "engines": {
+    "node": "7.2.1",
+    "npm": "3.10.10"
+  },
   "private": true,
   "devDependencies": {
     "babel-core": "^6.18.2",
