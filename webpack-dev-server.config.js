@@ -3,7 +3,7 @@ const path = require('path');
 const buildPath = path.resolve(__dirname, 'build');
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const port = process.env.PORT || 8000
 const config = {
     // Entry points to the project
     entry: [
@@ -22,7 +22,7 @@ const config = {
             "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
         },
         inline: true,
-        port: 3000, // Port Number
+        port: port, // Port Number
         host: 'localhost', // Change to '0.0.0.0' for external facing server
     },
     devtool: 'eval',
@@ -43,10 +43,7 @@ const config = {
         // Moves files
         new TransferWebpackPlugin([
             {from: 'www'},
-        ], path.resolve(__dirname, 'src')),
-        new HtmlWebpackPlugin({
-            favicon: __dirname + '/images/favicon.ico'
-        })
+        ], path.resolve(__dirname, 'src'))
     ],
     module: {
         loaders: [
@@ -84,7 +81,6 @@ const config = {
         ],
 
     },
-
 
 };
 
