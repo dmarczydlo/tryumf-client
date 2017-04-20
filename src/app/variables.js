@@ -28,8 +28,6 @@ export const groupValue = [
     }
 ];
 
-
-
 export const avatarValue = [
     {id: 1, name: 'Mężczyzna 1', img: 'm1.png'},
     {id: 2, name: 'Mężczyzna 2', img: 'm2.png'},
