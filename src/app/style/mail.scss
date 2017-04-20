@@ -1,0 +1,286 @@
+$border-color-light: rgb(232, 232, 232);
+$border-color-dark: rgb(191, 191, 191);
+$success-color: #C8E6C9;
+$info-color: #B2EBF2;
+$error-color: #FFCDD2;
+$error-color-text: #F44336;
+
+$color-blue: rgb(0, 188, 212);
+.container {
+
+  margin-top: 10px;
+  .table_my {
+    table {
+      margin-bottom: 0px !important;
+    }
+
+    thead > tr > th {
+      padding: 0px !important;
+      font-size: 12px;
+      text-align: center !important;
+      cursor: pointer;
+    }
+    td {
+      font-size: 12px !important;
+      padding: 5px !important;
+      text-align: right !important;
+      vertical-align: text-bottom;
+    }
+  }
+  .loginForm {
+    h2 {
+      text-align: center;
+    }
+
+    padding-left: 25%;
+    padding-right: 25%;
+  }
+
+  .button_right_only {
+    float: right;
+  }
+  .button_margin_top {
+    margin-top: 10px;
+  }
+
+  .block {
+    display: block;
+  }
+
+  .userBlock {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  .imgAvatar {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .profileLabel {
+    padding-left: 70px;
+    display: block;
+    margin-top: 5px;
+  }
+
+  .buttonUpdate {
+    margin-left: 70px;
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 20px;
+  }
+
+  .displayImage, .containerRoot > .containerElement > .displayImageElement {
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50px;
+      cursor: pointer;
+    }
+  }
+  .displayImageMin {
+    img {
+      width: 25px;
+      height: 25px;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+  }
+}
+
+.blockReview {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  .insideReview {
+    .blockPadding {
+      padding: 15px 15px 10px 15px;
+      .name {
+        padding-top: 5px;
+        border-bottom: 1px solid $color-blue;
+        margin-bottom: 5px;
+        span {
+          margin-left: 2px;
+          margin-right: 2px;
+        }
+      }
+
+      .status {
+        margin-top: 4px;
+        border: 1px solid $border-color-light;
+        text-align: center;
+        padding: 1px;
+      }
+    }
+  }
+}
+
+.imageLoad {
+  z-index: 999999;
+}
+
+.timer {
+  .display {
+    display: inline-block;
+  }
+  .no_display {
+    display: none;
+  }
+
+  .data {
+    font-size: 20px;
+    margin-left: 10px;
+    font-weight: bold;
+    color: #00bcd4;
+  }
+}
+
+.run {
+  background: #e3f2fd;
+}
+
+.warning {
+  background: #FFCDD2 !important;
+}
+
+.unrun {
+  background: #fff !important;
+}
+
+.no_padding {
+  padding: 0px !important;
+}
+
+.alert_block {
+  display: block;
+  border: 1px $border-color-light;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.alert_message {
+  text-align: center;
+  font-size: 15px;
+}
+
+.info {
+  background: $info-color;
+}
+
+.error {
+  background: $error-color;
+}
+
+.errorColor {
+  color: $error-color-text;
+  font-weight: bold;
+}
+
+.success {
+  background: $success-color;
+}
+
+.center {
+  text-align: center;
+}
+
+.blockCenter {
+  margin: 0 auto;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.hide {
+  display: none;
+}
+
+.containerDND {
+
+  .label {
+    font-weight: 700;
+    color: #b3b3b3;
+    font-size: 12px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    margin-top: 7px;
+  }
+  .activeContainer {
+    background: $success-color !important;
+  }
+
+  .sumTimeEmployee {
+    display: block;
+    background: $info-color;
+    text-align: center;
+    padding: 4px;
+    border: 1px solid $border-color-light;
+    margin: 4px 0 4px 0;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .containerRoot {
+    border: 1px solid $border-color-light;
+    max-height: 350px;
+    min-height: 350px;
+    overflow: auto;
+    background: rgb(247, 247, 247);
+    .containerElement {
+      border: 1px solid $border-color-light;
+      padding: 0.5rem 1rem;
+      margin: .5rem;
+      background: #fff;
+      cursor: move;
+      span {
+        margin-left: 2px;
+        margin-right: 2px;
+
+      }
+    }
+
+    .containerLineFirst {
+      display: block;
+    }
+    .containerLineSecond {
+      display: block;
+      border-top: 1px dashed $border-color-dark;
+      padding-top: 3px;
+      margin-top: 3px;
+    }
+  }
+}
+
+.marginBottom12 {
+  margin-bottom: 12px;
+}
+
+.marginTop4 {
+  margin-top: 4px;
+}
+
+.timerTime {
+  font-size: 16px;
+  margin-top: -1px;
+}
+
+.alingRight {
+  text-align: right;
+}
+
+.reclamation {
+  background: $error-color !important;
+}
+
+@media (min-width: 769px) {
+  .centerImg {
+    img {
+      transform: translate(50%, 0%);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .centerImg {
+    text-align: center;
+  }
+  img {
+    margin-top: 10px;
+  }
+}

@@ -1,12 +1,43 @@
 import React from 'react';
 import {render} from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import Main from './Main'; // Our custom react component
+import Index from './Index';
+import {Provider} from 'react-redux'
+import {createStore, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk';
+import setAuthorizationToken from './utils/authorizationToken';
+import rootReducer from './reducers/rootReducer';
+import jwtDecode from 'jwt-decode';
+import {setCurrentUser} from './actions/authAction';
 
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
+
+
+// const composeEnhancers =
+//     typeof window === 'object' &&
+//     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+//         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+//             Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+        // }) : compose;
+
+// const enhancer = composeEnhancers(
+//     applyMiddleware(thunk);
+    // other store enhancers if any
+// );
+
+const store = createStore(
+    rootReducer,
+    applyMiddleware(thunk)
+);
+
+
 injectTapEventPlugin();
 
-// Render the main app react component into the app div.
-// For more details see: https://facebook.github.io/react/docs/top-level-api.html#react.render
-render(<Main />, document.getElementById('app'));
+if (localStorage.jwtToken) {
+    // setAuthorizationToken(localStorage.jwtToken);
+//
+    const user_obj = jwtDecode(localStorage.jwtToken);
+    user_obj.group = localStorage.group;
+    store.dispatch(setCurrentUser(user_obj));
+}
+
+render(<Provider store={store}><Index /></Provider>, document.getElementById('app'));
