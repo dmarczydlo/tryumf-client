@@ -2,6 +2,7 @@
 
 DIR_BIN="$( cd "$( dirname "$0" )" && pwd )"
 cd $DIR_BIN
+cd ..
 cd node_modules
 cd disposables
 

@@ -2,9 +2,8 @@
 
 DIR_BIN="$( cd "$( dirname "$0" )" && pwd )"
 cd $DIR_BIN
-cd ../build
+cd ..
 cat > index.php <<- "EOF"
-<?php include_once("home.html"); ?>
+<?php include_once("./build/index.html"); ?>
 EOF
-mv index.html home.html
 echo 'SCRIPT DONE'
