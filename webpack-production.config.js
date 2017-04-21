@@ -12,6 +12,9 @@ const config = {
         path: buildPath, // Path of output file
         filename: 'app.js', // Name of output file
     },
+    externals: {
+        config: JSON.stringify(require('./src/www/config.json')), //eslint-disable-line
+    },
     plugins: [
         // Define production build to allow React to strip out unnecessary checks
         new webpack.DefinePlugin({
@@ -62,8 +65,7 @@ const config = {
             },
             {
                 test: /\.json$/,
-                loader: 'json-loader',
-                include: './www/config.json',
+                loader: 'json-loader'
             }
 
         ]
