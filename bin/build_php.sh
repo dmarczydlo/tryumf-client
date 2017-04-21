@@ -4,15 +4,8 @@ echo "RUN POST BUILD SCRIPT"
 DIR_BIN="$( cd "$( dirname "$0" )" && pwd )"
 cd $DIR_BIN
 cd ..
+cd public
 cat > index.php <<- "EOF"
-<?php include_once("public/index.html");
- echo "start";
- $files1 = scandir("./");
- echo "<pre>";
- print_r($files1);
- $files2 = scandir("./public/");
- echo "<pre>";
- print_r($files2);
-?>
+<?php include_once("index.html");?>
 EOF
 echo 'SCRIPT DONE'
