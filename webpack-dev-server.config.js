@@ -31,7 +31,7 @@ const config = {
         filename: 'app.js',
     },
     externals: {
-        config: JSON.stringify(require('./src/www/config.json')), //eslint-disable-line
+        config: JSON.stringify(require('./src/www/dev-config.json')), //eslint-disable-line
     },
     plugins: [
         new webpack.ProvidePlugin({
