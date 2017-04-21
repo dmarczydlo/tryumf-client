@@ -1,5 +1,4 @@
-import config  from '!json!../www/config.json';
-
+import config from 'config';
 export const HOST_SERVER = config.api.HOST_SERVER;
 export const API_PATH = config.api.API_PATH;
 

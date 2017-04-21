@@ -30,8 +30,9 @@ const config = {
         path: buildPath, // Path of output file
         filename: 'app.js',
     },
-
-
+    externals: {
+        config: JSON.stringify(require('./src/www/config.json')), //eslint-disable-line
+    },
     plugins: [
         new webpack.ProvidePlugin({
             "React": "react",
@@ -74,8 +75,7 @@ const config = {
             },
             {
                 test: /\.json$/,
-                loader: 'json-loader',
-                include: './www/config.json',
+                loader: 'json-loader'
             }
 
         ],

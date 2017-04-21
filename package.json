@@ -3,8 +3,8 @@
   "version": "0.16.4",
   "description": "Sample project that uses Material-UI",
   "scripts": {
-    "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
-    "build": "webpack --config webpack-production.config.js --progress --colors  &&  bin/build_php.sh"
+    "start": "sh bin/pre_run.sh && webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
+    "build": "webpack --config webpack-production.config.js --progress --colors  && sh bin/build_php.sh"
   },
   "engines": {
     "node": "7.2.1",
