@@ -4,7 +4,8 @@
   "description": "Sample project that uses Material-UI",
   "scripts": {
     "start": "sh bin/pre_run.sh && webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
-    "build": "webpack --config webpack-production.config.js --progress --colors  && sh bin/build_php.sh"
+    "build": "webpack --config webpack-production.config.js --progress --colors  && sh bin/build_php.sh",
+    "heroku-postbuild": "webpack --config webpack-production.config.js --progress --colors  && sh bin/build_php.sh"
   },
   "engines": {
     "node": "7.2.1",
