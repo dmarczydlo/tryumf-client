@@ -1,7 +1,7 @@
 {
   "api": {
-    "HOST_SERVER": "https://api-tryumf.herokuapp.com",
-    "API_PATH": "https://api-tryumf.herokuapp.com/api/"
+    "HOST_SERVER": "http://api.loc/",
+    "API_PATH": "http://api.loc//api/"
   },
   "time_variable": {
     "REFRESH_SET_DATA": 300000,
