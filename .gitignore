@@ -3,3 +3,4 @@ public
 npm-debug.log
 .idea
 index.php
+src/www/config.json
