@@ -4,7 +4,7 @@ import MenuItem from 'material-ui/MenuItem';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {logout} from '../actions/authAction';
-
+import {API_PATH} from '../variables';
 class Sidebar extends React.Component {
 
     logout(e) {
@@ -21,14 +21,12 @@ class Sidebar extends React.Component {
             return (
                 <div>
                     <Link to={'/users'}><MenuItem onClick={this.props.toggleSidebar}>Pracownicy</MenuItem></Link>
-                    <Link to={'/raports'}><MenuItem onClick={this.props.toggleSidebar}>Raporty</MenuItem></Link>
+                    <a href={API_PATH + 'excel_report'}><MenuItem onClick={this.props.toggleSidebar}>Raporty</MenuItem></a>
                 </div>
-
             )
         }
     }
-
-
+    
     render() {
         const {isAuth} = this.props.auth;
 
