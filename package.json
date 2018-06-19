@@ -5,7 +5,9 @@
   "scripts": {
     "start": "sh bin/pre_run.sh && webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
     "build": "sh bin/pre_run.sh && webpack --config webpack-production.config.js --progress --colors  && sh bin/build_php.sh",
-    "remove": "sh bin/remove.sh"
+    "remove": "sh bin/remove.sh",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "engines": {
     "node": "7.2.1",
@@ -40,7 +42,7 @@
     "history": "^4.5.0",
     "intl": "^1.2.5",
     "intl-locales-supported": "^1.0.0",
-    "jsonwebtoken": "^7.3.0",
+    "jsonwebtoken": "^8.0.0",
     "jwt-decode": "^2.1.0",
     "less": "2.7.2",
     "lodash": "^4.17.4",
@@ -64,6 +66,8 @@
     "react-tap-event-plugin": "^2.0.1",
     "react.timer": "^2.1.0",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0"
-  }
+    "redux-thunk": "^2.2.0",
+    "snyk": "^1.83.0"
+  },
+  "snyk": true
 }
